@@ -493,14 +493,16 @@ to use only one protocol, using both by default.</p>
 <td><code>input_variables</code></td>
 <td><code>List[Variable]</code></td>
 <td>
-<p>List of lume-model variables to use as </p>
+<p>List of lume-model variables to use as 
+inputs.</p>
 </td>
 </tr>
 <tr>
 <td><code>ouput_variables</code></td>
 <td><code>List[Variable]</code></td>
 <td>
-<p>List of lume-model variables to use as </p>
+<p>List of lume-model variables to use as 
+outputs.</p>
 </td>
 </tr>
 </tbody>
@@ -1269,7 +1271,8 @@ the driver.</p>
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>338
+<pre><span></span>337
+338
 339
 340
 341
@@ -1331,8 +1334,7 @@ the driver.</p>
 397
 398
 399
-400
-401</pre>
+400</pre>
 </div>
 </td>
 <td class="code">
@@ -1444,7 +1446,8 @@ variable state and executes model.</p>
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>504
+<pre><span></span>503
+504
 505
 506
 507
@@ -1479,8 +1482,7 @@ variable state and executes model.</p>
 536
 537
 538
-539
-540</pre>
+539</pre>
 </div>
 </td>
 <td class="code">
@@ -1544,7 +1546,8 @@ output variable values.</p>
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>404
+<pre><span></span>403
+404
 405
 406
 407
@@ -1564,8 +1567,7 @@ output variable values.</p>
 421
 422
 423
-424
-425</pre>
+424</pre>
 </div>
 </td>
 <td class="code">
@@ -1613,7 +1615,8 @@ initialize_pva_server<span class="p">(</span><span class="bp">self</span><span c
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>427
+<pre><span></span>426
+427
 428
 429
 430
@@ -1687,8 +1690,7 @@ initialize_pva_server<span class="p">(</span><span class="bp">self</span><span c
 498
 499
 500
-501
-502</pre>
+501</pre>
 </div>
 </td>
 <td class="code">
@@ -1794,7 +1796,8 @@ start<span class="p">(</span><span class="bp">self</span><span class="p">,</span
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>560
+<pre><span></span>559
+560
 561
 562
 563
@@ -1826,8 +1829,7 @@ start<span class="p">(</span><span class="bp">self</span><span class="p">,</span
 589
 590
 591
-592
-593</pre>
+592</pre>
 </div>
 </td>
 <td class="code">
@@ -1887,7 +1889,8 @@ start_ca_server<span class="p">(</span><span class="bp">self</span><span class="
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>542
+<pre><span></span>541
+542
 543
 544
 545
@@ -1895,8 +1898,7 @@ start_ca_server<span class="p">(</span><span class="bp">self</span><span class="
 547
 548
 549
-550
-551</pre>
+550</pre>
 </div>
 </td>
 <td class="code">
@@ -1932,12 +1934,12 @@ start_pva_server<span class="p">(</span><span class="bp">self</span><span class=
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>553
+<pre><span></span>552
+553
 554
 555
 556
-557
-558</pre>
+557</pre>
 </div>
 </td>
 <td class="code">
@@ -1969,7 +1971,8 @@ stop<span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>595
+<pre><span></span>594
+595
 596
 597
 598
@@ -1979,8 +1982,7 @@ stop<span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 602
 603
 604
-605
-606</pre>
+605</pre>
 </div>
 </td>
 <td class="code">
@@ -2031,7 +2033,8 @@ access server.</p>
 <td><code>variables</code></td>
 <td><code>List[lume_model.variables.Variable]</code></td>
 <td>
-<p>List of lume_model variables to be served with</p>
+<p>List of lume_model variables to be served with
+channel access server.</p>
 </td>
 <td><em>required</em></td>
 </tr>
@@ -2146,7 +2149,7 @@ access server.</p>
 
 <span class="sd">    Args:</span>
 <span class="sd">        variables (List[Variable]): List of lume_model variables to be served with</span>
-<span class="sd">        channel access server.</span>
+<span class="sd">            channel access server.</span>
 
 <span class="sd">    """</span>
     <span class="n">pvdb</span> <span class="o">=</span> <span class="p">{}</span>
