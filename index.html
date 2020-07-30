@@ -272,7 +272,7 @@
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"></path></svg>
 </a>
 <h1 id="lume-epics">lume-epics</h1>
-<p>Lume-epics is a dedicated API for serving and interacting with online models using EPICS process variables. </p>
+<p>Lume-epics is a dedicated API for serving LUME model variables with EPICS. </p>
 <h2 id="model-development">Model Development</h2>
 <p>Model input and output variables are represented by <a href="https://github.com/slaclab/lume-model">lume-model</a> variable representations. These variables enforce the minimal data requirements necessary for serving EPICS process variables associated with an online model. Lume-model defines two variable types: scalar and image. Scalar variables hold float values while image variables hold two dimensional arrays. The lume-epics server must be instantiated with a user defined class holding all methods necessary for model execution.</p>
 <p>Lume-model also defines a SurrogateModel base class to enforce the defined class's compatability with the lume-epics server. The primary function of this base class is to force the implementation of an evaluate method. This method must accept a list of lume-model input variables, execute the model, and return a list of output variables. Input variables and output variables must be defined as class attributes. They may be defined directly as class attributes or assigned in <strong>init</strong>.</p>
