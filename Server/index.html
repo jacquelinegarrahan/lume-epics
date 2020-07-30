@@ -1,0 +1,2297 @@
+
+<!DOCTYPE html>
+
+<html class="no-js" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<link href="https://lume-epics.github.io/Server/" rel="canonical"/>
+<link href="../assets/images/favicon.png" rel="shortcut icon"/>
+<meta content="mkdocs-1.1.2, mkdocs-material-5.4.0" name="generator"/>
+<title>Server - lume-epics</title>
+<link href="../assets/stylesheets/main.fe0cca5b.min.css" rel="stylesheet"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&amp;display=fallback" rel="stylesheet"/>
+<style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
+</head>
+<body dir="ltr">
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#epics-server">
+          Skip to content
+        </a>
+</div>
+<div data-md-component="announce">
+</div>
+<header class="md-header" data-md-component="header">
+<nav aria-label="Header" class="md-header-nav md-grid">
+<a aria-label="lume-epics" class="md-header-nav__button md-logo" href="https://lume-epics.github.io/" title="lume-epics">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"></path></svg>
+</a>
+<label class="md-header-nav__button md-icon" for="__drawer">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"></path></svg>
+</label>
+<div class="md-header-nav__title" data-md-component="header-title">
+<div class="md-header-nav__ellipsis">
+<span class="md-header-nav__topic md-ellipsis">
+            lume-epics
+          </span>
+<span class="md-header-nav__topic md-ellipsis">
+            
+              Server
+            
+          </span>
+</div>
+</div>
+<div class="md-header-nav__source">
+<a class="md-source" href="https://github.com/slaclab/lume-epics/" title="Go to repository">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"></path></svg>
+</div>
+<div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Navigation" class="md-nav md-nav--primary" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="lume-epics" class="md-nav__button md-logo" href="https://lume-epics.github.io/" title="lume-epics">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"></path></svg>
+</a>
+    lume-epics
+  </label>
+<div class="md-nav__source">
+<a class="md-source" href="https://github.com/slaclab/lume-epics/" title="Go to repository">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"></path></svg>
+</div>
+<div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+</div>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href=".." title="Overview">
+      Overview
+    </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../Install/" title="Install">
+      Install
+    </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" id="nav-3" type="checkbox"/>
+<label class="md-nav__link" for="nav-3">
+      Tutorial
+      <span class="md-nav__icon md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"></path></svg>
+</span>
+</label>
+<nav aria-label="Tutorial" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="nav-3">
+<span class="md-nav__icon md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"></path></svg>
+</span>
+        Tutorial
+      </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../BokehServer/" title="Bokeh Server">
+      Bokeh Server
+    </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../Jupyter/" title="Jupyter Notebook Demo">
+      Jupyter Notebook Demo
+    </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" data-md-toggle="nav-4" id="nav-4" type="checkbox"/>
+<label class="md-nav__link" for="nav-4">
+      Documentation
+      <span class="md-nav__icon md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"></path></svg>
+</span>
+</label>
+<nav aria-label="Documentation" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="nav-4">
+<span class="md-nav__icon md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"></path></svg>
+</span>
+        Documentation
+      </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../Layout/" title="Layout">
+      Layout
+    </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="nav-4-2" id="nav-4-2" type="checkbox"/>
+<label class="md-nav__link" for="nav-4-2">
+      Client
+      <span class="md-nav__icon md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"></path></svg>
+</span>
+</label>
+<nav aria-label="Client" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="nav-4-2">
+<span class="md-nav__icon md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"></path></svg>
+</span>
+        Client
+      </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../Controller/" title="Controller">
+      Controller
+    </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../Monitors/" title="Monitors">
+      Monitors
+    </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../Widgets/" title="Widgets">
+      Widgets
+    </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../Model/" title="Model">
+      Model
+    </a>
+</li>
+<li class="md-nav__item md-nav__item--active">
+<input class="md-nav__toggle md-toggle" data-md-toggle="toc" id="__toc" type="checkbox"/>
+<label class="md-nav__link md-nav__link--active" for="__toc">
+        Server
+        <span class="md-nav__icon md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 9h14V7H3v2m0 4h14v-2H3v2m0 4h14v-2H3v2m16 0h2v-2h-2v2m0-10v2h2V7h-2m0 6h2v-2h-2v2z"></path></svg>
+</span>
+</label>
+<a class="md-nav__link md-nav__link--active" href="./" title="Server">
+      Server
+    </a>
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"></path></svg>
+</span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#lume_epics.epics_server">
+    lume_epics.epics_server
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#lume_epics.epics_server.CADriver">
+    CADriver
+  </a>
+<nav aria-label="CADriver" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#lume_epics.epics_server.CADriver.read">
+    read()
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#lume_epics.epics_server.CADriver.set_output_pvs">
+    set_output_pvs()
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#lume_epics.epics_server.CADriver.write">
+    write()
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#lume_epics.epics_server.ModelLoader">
+    ModelLoader
+  </a>
+<nav aria-label="ModelLoader" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#lume_epics.epics_server.ModelLoader.__init__">
+    __init__()
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#lume_epics.epics_server.PVAccessInputHandler">
+    PVAccessInputHandler
+  </a>
+<nav aria-label="PVAccessInputHandler" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#lume_epics.epics_server.PVAccessInputHandler.__init__">
+    __init__()
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#lume_epics.epics_server.PVAccessInputHandler.put">
+    put()
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#lume_epics.epics_server.Server">
+    Server
+  </a>
+<nav aria-label="Server" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#lume_epics.epics_server.Server.__init__">
+    __init__()
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#lume_epics.epics_server.Server.ca_thread_process">
+    ca_thread_process()
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#lume_epics.epics_server.Server.initialize_ca_server">
+    initialize_ca_server()
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#lume_epics.epics_server.Server.initialize_pva_server">
+    initialize_pva_server()
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#lume_epics.epics_server.Server.start">
+    start()
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#lume_epics.epics_server.Server.start_ca_server">
+    start_ca_server()
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#lume_epics.epics_server.Server.start_pva_server">
+    start_pva_server()
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#lume_epics.epics_server.Server.stop">
+    stop()
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#lume_epics.epics_server.build_pvdb">
+    build_pvdb()
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"></path></svg>
+</span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#lume_epics.epics_server">
+    lume_epics.epics_server
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#lume_epics.epics_server.CADriver">
+    CADriver
+  </a>
+<nav aria-label="CADriver" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#lume_epics.epics_server.CADriver.read">
+    read()
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#lume_epics.epics_server.CADriver.set_output_pvs">
+    set_output_pvs()
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#lume_epics.epics_server.CADriver.write">
+    write()
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#lume_epics.epics_server.ModelLoader">
+    ModelLoader
+  </a>
+<nav aria-label="ModelLoader" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#lume_epics.epics_server.ModelLoader.__init__">
+    __init__()
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#lume_epics.epics_server.PVAccessInputHandler">
+    PVAccessInputHandler
+  </a>
+<nav aria-label="PVAccessInputHandler" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#lume_epics.epics_server.PVAccessInputHandler.__init__">
+    __init__()
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#lume_epics.epics_server.PVAccessInputHandler.put">
+    put()
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#lume_epics.epics_server.Server">
+    Server
+  </a>
+<nav aria-label="Server" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#lume_epics.epics_server.Server.__init__">
+    __init__()
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#lume_epics.epics_server.Server.ca_thread_process">
+    ca_thread_process()
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#lume_epics.epics_server.Server.initialize_ca_server">
+    initialize_ca_server()
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#lume_epics.epics_server.Server.initialize_pva_server">
+    initialize_pva_server()
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#lume_epics.epics_server.Server.start">
+    start()
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#lume_epics.epics_server.Server.start_ca_server">
+    start_ca_server()
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#lume_epics.epics_server.Server.start_pva_server">
+    start_pva_server()
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#lume_epics.epics_server.Server.stop">
+    stop()
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#lume_epics.epics_server.build_pvdb">
+    build_pvdb()
+  </a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content">
+<article class="md-content__inner md-typeset">
+<a class="md-content__button md-icon" href="https://github.com/slaclab/lume-epics/edit/master/docs/Server.md" title="Edit this page">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"></path></svg>
+</a>
+<h1 id="epics-server">EPICS Server</h1>
+<div class="doc doc-object doc-module">
+<h2 class="hidden-toc" href="#lume_epics.epics_server" id="lume_epics.epics_server" style="visibility: hidden; width: 0; height: 0;">
+</h2>
+<div class="doc doc-contents first">
+<p>This module contains the EPICS server class along with the associated pvAccess and 
+Channel Acccess infrastructure. Included is the Channel Access driver, handlers for 
+pvAccess callbacks, and associated utilities. The Server may be optionally initialized
+to use only one protocol, using both by default.</p>
+<div class="doc doc-children">
+<div class="doc doc-object doc-class">
+<h2 class="doc doc-heading" id="lume_epics.epics_server.CADriver">
+<code>CADriver</code>
+</h2>
+<div class="doc doc-contents">
+<p>Class for handling read and write requests to Channel Access process variables.</p>
+<p><strong>Attributes:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>input_variables</code></td>
+<td><code>List[Variable]</code></td>
+<td>
+<p>List of lume-model variables to use as </p>
+</td>
+</tr>
+<tr>
+<td><code>ouput_variables</code></td>
+<td><code>List[Variable]</code></td>
+<td>
+<p>List of lume-model variables to use as </p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>!!! note
+    In the pcaspy documentation, 'reason' is used instead of pvname.</p>
+<div class="doc doc-children">
+<div class="doc doc-object doc-method">
+<h3 class="doc doc-heading" id="lume_epics.epics_server.CADriver.read">
+<code class="highlight language-python">
+read<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pvname</span><span class="p">)</span> </code>
+</h3>
+<div class="doc doc-contents">
+<p>Method executed by server when clients read a Channel Access process 
+variable.</p>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>pvname</code></td>
+<td><code>str</code></td>
+<td>
+<p>Process variable name.</p>
+</td>
+<td><em>required</em></td>
+</tr>
+</tbody>
+</table>
+<details class="quote">
+<summary>Source code in <code>lume_epics/epics_server.py</code></summary>
+<table class="highlighttable">
+<tr>
+<td class="linenos">
+<div class="linenodiv">
+<pre><span></span>163
+164
+165
+166
+167
+168
+169
+170
+171</pre>
+</div>
+</td>
+<td class="code">
+<div class="highlight">
+<pre><span></span><code><span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pvname</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
+    <span class="sd">"""Method executed by server when clients read a Channel Access process </span>
+<span class="sd">    variable.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        pvname (str): Process variable name.</span>
+
+<span class="sd">    """</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">getParam</span><span class="p">(</span><span class="n">pvname</span><span class="p">)</span>
+</code></pre>
+</div>
+</td>
+</tr>
+</table>
+</details>
+</div>
+</div>
+<div class="doc doc-object doc-method">
+<h3 class="doc doc-heading" id="lume_epics.epics_server.CADriver.set_output_pvs">
+<code class="highlight language-python">
+set_output_pvs<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">output_variables</span><span class="p">)</span> </code>
+</h3>
+<div class="doc doc-contents">
+<p>Update output Channel Access process variables after model execution.</p>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>output_variables</code></td>
+<td><code>List[lume_model.variables.Variable]</code></td>
+<td>
+<p>List of output variables.</p>
+</td>
+<td><em>required</em></td>
+</tr>
+</tbody>
+</table>
+<details class="quote">
+<summary>Source code in <code>lume_epics/epics_server.py</code></summary>
+<table class="highlighttable">
+<tr>
+<td class="linenos">
+<div class="linenodiv">
+<pre><span></span>201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223</pre>
+</div>
+</td>
+<td class="code">
+<div class="highlight">
+<pre><span></span><code><span class="k">def</span> <span class="nf">set_output_pvs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">output_variables</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Variable</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">"""Update output Channel Access process variables after model execution.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        output_variables (List[Variable]): List of output variables.</span>
+<span class="sd">    """</span>
+
+    <span class="k">for</span> <span class="n">variable</span> <span class="ow">in</span> <span class="n">output_variables</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">variable</span><span class="o">.</span><span class="n">variable_type</span> <span class="o">==</span> <span class="s2">"image"</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"Channel Access image process variable </span><span class="si">%s</span><span class="s2"> updated."</span><span class="p">,</span> <span class="n">variable</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">setParam</span><span class="p">(</span>
+                <span class="n">variable</span><span class="o">.</span><span class="n">name</span> <span class="o">+</span> <span class="s2">":ArrayData_RBV"</span><span class="p">,</span> <span class="n">variable</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">setParam</span><span class="p">(</span><span class="n">variable</span><span class="o">.</span><span class="n">name</span> <span class="o">+</span> <span class="s2">":MinX_RBV"</span><span class="p">,</span> <span class="n">variable</span><span class="o">.</span><span class="n">x_min</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">setParam</span><span class="p">(</span><span class="n">variable</span><span class="o">.</span><span class="n">name</span> <span class="o">+</span> <span class="s2">":MinY_RBV"</span><span class="p">,</span> <span class="n">variable</span><span class="o">.</span><span class="n">y_min</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">setParam</span><span class="p">(</span><span class="n">variable</span><span class="o">.</span><span class="n">name</span> <span class="o">+</span> <span class="s2">":MaxX_RBV"</span><span class="p">,</span> <span class="n">variable</span><span class="o">.</span><span class="n">x_max</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">setParam</span><span class="p">(</span><span class="n">variable</span><span class="o">.</span><span class="n">name</span> <span class="o">+</span> <span class="s2">":MaxY_RBV"</span><span class="p">,</span> <span class="n">variable</span><span class="o">.</span><span class="n">y_max</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">output_variables</span><span class="p">[</span><span class="n">variable</span><span class="o">.</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">variable</span><span class="o">.</span><span class="n">value</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"Channel Access process variable </span><span class="si">%s</span><span class="s2"> updated wth value </span><span class="si">%s</span><span class="s2">."</span><span class="p">,</span> <span class="n">variable</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">variable</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">setParam</span><span class="p">(</span><span class="n">variable</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">variable</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">output_variables</span><span class="p">[</span><span class="n">variable</span><span class="o">.</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">variable</span><span class="o">.</span><span class="n">value</span>
+</code></pre>
+</div>
+</td>
+</tr>
+</table>
+</details>
+</div>
+</div>
+<div class="doc doc-object doc-method">
+<h3 class="doc doc-heading" id="lume_epics.epics_server.CADriver.write">
+<code class="highlight language-python">
+write<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pvname</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span> </code>
+</h3>
+<div class="doc doc-contents">
+<p>Method executed by server when clients write to a Channel Access process
+variable.</p>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>pvname</code></td>
+<td><code>str</code></td>
+<td>
+<p>Process variable name.</p>
+</td>
+<td><em>required</em></td>
+</tr>
+<tr>
+<td><code>value</code></td>
+<td><code>Union[float, numpy.ndarray]</code></td>
+<td>
+<p>Value to assign to the process variable.</p>
+</td>
+<td><em>required</em></td>
+</tr>
+</tbody>
+</table>
+<details class="quote">
+<summary>Source code in <code>lume_epics/epics_server.py</code></summary>
+<table class="highlighttable">
+<tr>
+<td class="linenos">
+<div class="linenodiv">
+<pre><span></span>173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199</pre>
+</div>
+</td>
+<td class="code">
+<div class="highlight">
+<pre><span></span><code><span class="k">def</span> <span class="nf">write</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pvname</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="sd">"""Method executed by server when clients write to a Channel Access process</span>
+<span class="sd">    variable.</span>
+
+
+<span class="sd">    Args:</span>
+<span class="sd">        pvname (str): Process variable name.</span>
+
+<span class="sd">        value (Union[float, np.ndarray]): Value to assign to the process variable.</span>
+
+<span class="sd">    """</span>
+
+    <span class="k">if</span> <span class="n">pvname</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_variables</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">"Cannot update variable </span><span class="si">%s</span><span class="s2">. Output variables can only be updated via surrogate model callback."</span><span class="p">,</span> <span class="n">pvname</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">False</span>
+
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">pvname</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">input_variables</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">input_variables</span><span class="p">[</span><span class="n">pvname</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">setParam</span><span class="p">(</span><span class="n">pvname</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">updatePVs</span><span class="p">()</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"Channel Access process variable </span><span class="si">%s</span><span class="s2"> updated with value </span><span class="si">%s</span><span class="s2">"</span><span class="p">,</span> <span class="n">pvname</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">True</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">"</span><span class="si">%s</span><span class="s2"> not found in server variables."</span><span class="p">,</span> <span class="n">pvame</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">False</span>
+</code></pre>
+</div>
+</td>
+</tr>
+</table>
+</details>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="doc doc-object doc-class">
+<h2 class="doc doc-heading" id="lume_epics.epics_server.ModelLoader">
+<code>ModelLoader</code>
+</h2>
+<div class="doc doc-contents">
+<p>Subclass of threading.local that initializes the surrogate model in each thread. 
+This avoids conflicts that may occur when calling a shared graph between threads.</p>
+<p><strong>Attributes:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>model</code></td>
+<td><code>SurrogateModel</code></td>
+<td>
+<p>Surrogate model instance to be executed.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="doc doc-children">
+<div class="doc doc-object doc-method">
+<h3 class="doc doc-heading" id="lume_epics.epics_server.ModelLoader.__init__">
+<code class="highlight language-python">
+__init__<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model_class</span><span class="p">,</span> <span class="n">model_kwargs</span><span class="o">=</span><span class="p">{})</span> </code>
+<span class="doc doc-properties">
+<small class="doc doc-property doc-property-special"><code>special</code></small>
+</span>
+</h3>
+<div class="doc doc-contents">
+<p>Initializes the online surrogate model.</p>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>model_class</code></td>
+<td><code>SurrogateModel</code></td>
+<td>
+<p>Surrogate Model class to be instantiated. </p>
+</td>
+<td><em>required</em></td>
+</tr>
+<tr>
+<td><code>model_kwargs</code></td>
+<td><code>dict</code></td>
+<td>
+<p>kwargs for initialization</p>
+</td>
+<td><code>{}</code></td>
+</tr>
+</tbody>
+</table>
+<details class="quote">
+<summary>Source code in <code>lume_epics/epics_server.py</code></summary>
+<table class="highlighttable">
+<tr>
+<td class="linenos">
+<div class="linenodiv">
+<pre><span></span>236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248</pre>
+</div>
+</td>
+<td class="code">
+<div class="highlight">
+<pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model_class</span><span class="p">:</span> <span class="n">SurrogateModel</span><span class="p">,</span> <span class="n">model_kwargs</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="p">{})</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">"""Initializes the online surrogate model.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        model_class (SurrogateModel): Surrogate Model class to be instantiated. </span>
+
+<span class="sd">        model_kwargs (dict): kwargs for initialization</span>
+<span class="sd">    """</span>
+
+    <span class="n">surrogate_model</span> <span class="o">=</span> <span class="n">model_class</span><span class="p">(</span><span class="o">**</span><span class="n">model_kwargs</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="n">OnlineSurrogateModel</span><span class="p">(</span>
+        <span class="n">surrogate_model</span>
+    <span class="p">)</span>
+</code></pre>
+</div>
+</td>
+</tr>
+</table>
+</details>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="doc doc-object doc-class">
+<h2 class="doc doc-heading" id="lume_epics.epics_server.PVAccessInputHandler">
+<code>PVAccessInputHandler</code>
+</h2>
+<div class="doc doc-contents">
+<p>Handler object that defines the callbacks to execute on put operations to input
+    process variables.</p>
+<div class="doc doc-children">
+<div class="doc doc-object doc-method">
+<h3 class="doc doc-heading" id="lume_epics.epics_server.PVAccessInputHandler.__init__">
+<code class="highlight language-python">
+__init__<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prefix</span><span class="p">)</span> </code>
+<span class="doc doc-properties">
+<small class="doc doc-property doc-property-special"><code>special</code></small>
+</span>
+</h3>
+<div class="doc doc-contents">
+<p>Initialize the handler with prefix and image pv attributes</p>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>prefix</code></td>
+<td><code>str</code></td>
+<td>
+<p>Prefix used to format process variables</p>
+</td>
+<td><em>required</em></td>
+</tr>
+</tbody>
+</table>
+<details class="quote">
+<summary>Source code in <code>lume_epics/epics_server.py</code></summary>
+<table class="highlighttable">
+<tr>
+<td class="linenos">
+<div class="linenodiv">
+<pre><span></span>256
+257
+258
+259
+260
+261
+262
+263
+264</pre>
+</div>
+</td>
+<td class="code">
+<div class="highlight">
+<pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prefix</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    Initialize the handler with prefix and image pv attributes</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        prefix (str): Prefix used to format process variables</span>
+
+<span class="sd">    """</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">prefix</span> <span class="o">=</span> <span class="n">prefix</span>
+</code></pre>
+</div>
+</td>
+</tr>
+</table>
+</details>
+</div>
+</div>
+<div class="doc doc-object doc-method">
+<h3 class="doc doc-heading" id="lume_epics.epics_server.PVAccessInputHandler.put">
+<code class="highlight language-python">
+put<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pv</span><span class="p">,</span> <span class="n">op</span><span class="p">)</span> </code>
+</h3>
+<div class="doc doc-contents">
+<p>Updates the global input process variable state, posts the input process 
+variable value change, runs the thread local OnlineSurrogateModel instance 
+using the updated global input process variable states, and posts the model 
+output values to the output process variables.</p>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>pv</code></td>
+<td><code>SharedPV</code></td>
+<td>
+<p>Input process variable on which the put operates.</p>
+</td>
+<td><em>required</em></td>
+</tr>
+<tr>
+<td><code>op</code></td>
+<td><code>ServOpWrap</code></td>
+<td>
+<p>Server operation initiated by the put call.</p>
+</td>
+<td><em>required</em></td>
+</tr>
+</tbody>
+</table>
+<details class="quote">
+<summary>Source code in <code>lume_epics/epics_server.py</code></summary>
+<table class="highlighttable">
+<tr>
+<td class="linenos">
+<div class="linenodiv">
+<pre><span></span>266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290
+291
+292
+293
+294
+295
+296
+297
+298
+299
+300
+301
+302
+303
+304
+305
+306
+307
+308
+309
+310
+311</pre>
+</div>
+</td>
+<td class="code">
+<div class="highlight">
+<pre><span></span><code><span class="k">def</span> <span class="nf">put</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pv</span><span class="p">:</span> <span class="n">SharedPV</span><span class="p">,</span> <span class="n">op</span><span class="p">:</span> <span class="n">ServOpWrap</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">"""Updates the global input process variable state, posts the input process </span>
+<span class="sd">    variable value change, runs the thread local OnlineSurrogateModel instance </span>
+<span class="sd">    using the updated global input process variable states, and posts the model </span>
+<span class="sd">    output values to the output process variables.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        pv (SharedPV): Input process variable on which the put operates.</span>
+
+<span class="sd">        op (ServOpWrap): Server operation initiated by the put call.</span>
+
+<span class="sd">    """</span>
+    <span class="k">global</span> <span class="n">providers</span>
+    <span class="k">global</span> <span class="n">input_pvs</span>
+
+    <span class="c1"># update input values and global input process variable state</span>
+    <span class="n">pv</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">op</span><span class="o">.</span><span class="n">value</span><span class="p">())</span>
+    <span class="n">input_pvs</span><span class="p">[</span><span class="n">op</span><span class="o">.</span><span class="n">name</span><span class="p">()</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">prefix</span><span class="si">}</span><span class="s2">:"</span><span class="p">,</span> <span class="s2">""</span><span class="p">)]</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">op</span><span class="o">.</span><span class="n">value</span><span class="p">()</span>
+
+    <span class="c1"># run model using global input process variable state</span>
+    <span class="n">output_variables</span> <span class="o">=</span> <span class="n">model_loader</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">input_pvs</span><span class="o">.</span><span class="n">values</span><span class="p">()))</span>
+
+    <span class="k">for</span> <span class="n">variable</span> <span class="ow">in</span> <span class="n">output_variables</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">variable</span><span class="o">.</span><span class="n">variable_type</span> <span class="o">==</span> <span class="s2">"image"</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"pvAccess image process variable </span><span class="si">%s</span><span class="s2"> updated."</span><span class="p">,</span> <span class="n">variable</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+            <span class="n">nd_array</span> <span class="o">=</span> <span class="n">variable</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="n">NTNDArrayData</span><span class="p">)</span>
+
+            <span class="c1"># get dw and dh from model output</span>
+            <span class="n">nd_array</span><span class="o">.</span><span class="n">attrib</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s2">"x_min"</span><span class="p">:</span> <span class="n">variable</span><span class="o">.</span><span class="n">x_min</span><span class="p">,</span>
+                <span class="s2">"y_min"</span><span class="p">:</span> <span class="n">variable</span><span class="o">.</span><span class="n">y_min</span><span class="p">,</span>
+                <span class="s2">"x_max"</span><span class="p">:</span> <span class="n">variable</span><span class="o">.</span><span class="n">x_max</span><span class="p">,</span>
+                <span class="s2">"y_max"</span><span class="p">:</span> <span class="n">variable</span><span class="o">.</span><span class="n">y_max</span><span class="p">,</span>
+            <span class="p">}</span>
+
+            <span class="n">output_provider</span> <span class="o">=</span> <span class="n">providers</span><span class="p">[</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">prefix</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">variable</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">"</span><span class="p">]</span>
+            <span class="n">output_provider</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">nd_array</span><span class="p">)</span>
+
+        <span class="c1"># do not build attribute pvs</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"pvAccess process variable </span><span class="si">%s</span><span class="s2"> updated with value </span><span class="si">%s</span><span class="s2">."</span><span class="p">,</span> <span class="n">variable</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">variable</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+            <span class="n">output_provider</span> <span class="o">=</span> <span class="n">providers</span><span class="p">[</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">prefix</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">variable</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">"</span><span class="p">]</span>
+            <span class="n">output_provider</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">variable</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+
+    <span class="c1"># mark server operation as complete</span>
+    <span class="n">op</span><span class="o">.</span><span class="n">done</span><span class="p">()</span>
+</code></pre>
+</div>
+</td>
+</tr>
+</table>
+</details>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="doc doc-object doc-class">
+<h2 class="doc doc-heading" id="lume_epics.epics_server.Server">
+<code>Server</code>
+</h2>
+<div class="doc doc-contents">
+<p>Server for EPICS process variables. Can be optionally initialized with only
+pvAccess or Channel Access protocols; but, defaults to serving over both. </p>
+<p><strong>Attributes:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>model</code></td>
+<td><code>OnlineSurrogateModel</code></td>
+<td>
+<p>OnlineSurrogateModel instance used for getting
+predictions.</p>
+</td>
+</tr>
+<tr>
+<td><code>input_variables</code></td>
+<td><code>List[Variable]</code></td>
+<td>
+<p>List of lume-model variables to use as 
+inputs.</p>
+</td>
+</tr>
+<tr>
+<td><code>ouput_variables</code></td>
+<td><code>List[Variable]</code></td>
+<td>
+<p>List of lume-model variables to use as 
+outputs.</p>
+</td>
+</tr>
+<tr>
+<td><code>ca_server</code></td>
+<td><code>SimpleServer</code></td>
+<td>
+<p>Server class that interfaces between the Channel 
+Access client and the driver.</p>
+</td>
+</tr>
+<tr>
+<td><code>ca_driver</code></td>
+<td><code>CADriver</code></td>
+<td>
+<p>Class used by server to handle to process variable 
+read/write requests.</p>
+</td>
+</tr>
+<tr>
+<td><code>pva_server</code></td>
+<td><code>P4PServer</code></td>
+<td>
+<p>Threaded p4p server used for serving pvAccess 
+variables.</p>
+</td>
+</tr>
+<tr>
+<td><code>exit_event</code></td>
+<td><code>Event</code></td>
+<td>
+<p>Threading exit event marking server shutdown.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="doc doc-children">
+<div class="doc doc-object doc-method">
+<h3 class="doc doc-heading" id="lume_epics.epics_server.Server.__init__">
+<code class="highlight language-python">
+__init__<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model_class</span><span class="p">,</span> <span class="n">input_variables</span><span class="p">,</span> <span class="n">output_variables</span><span class="p">,</span> <span class="n">prefix</span><span class="p">,</span> <span class="n">protocols</span><span class="o">=</span><span class="p">[</span><span class="s1">'ca'</span><span class="p">,</span> <span class="s1">'pva'</span><span class="p">],</span> <span class="n">model_kwargs</span><span class="o">=</span><span class="p">{})</span> </code>
+<span class="doc doc-properties">
+<small class="doc doc-property doc-property-special"><code>special</code></small>
+</span>
+</h3>
+<div class="doc doc-contents">
+<p>Create OnlineSurrogateModel instance in the main thread and initialize output 
+variables by running with the input process variable state, input/output 
+variable tracking, start the server, create the process variables, and start 
+the driver.</p>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>model_class</code></td>
+<td><code>SurrogateModel</code></td>
+<td>
+<p>Surrogate model class to be instantiated.</p>
+</td>
+<td><em>required</em></td>
+</tr>
+<tr>
+<td><code>input_variables</code></td>
+<td><code>List[lume_model.variables.InputVariable]</code></td>
+<td>
+<p>Model input variables.</p>
+</td>
+<td><em>required</em></td>
+</tr>
+<tr>
+<td><code>output_variables</code></td>
+<td><code>List[lume_model.variables.OutputVariable]</code></td>
+<td>
+<p>Model output variables.</p>
+</td>
+<td><em>required</em></td>
+</tr>
+<tr>
+<td><code>prefix</code></td>
+<td><code>str</code></td>
+<td>
+<p>Prefix used to format process variables.</p>
+</td>
+<td><em>required</em></td>
+</tr>
+<tr>
+<td><code>protocols</code></td>
+<td><code>List[str]</code></td>
+<td>
+<p>List of protocols used to instantiate server.</p>
+</td>
+<td><code>['ca', 'pva']</code></td>
+</tr>
+<tr>
+<td><code>model_kwargs</code></td>
+<td><code>dict</code></td>
+<td>
+<p>Kwargs to instantiate model.</p>
+</td>
+<td><code>{}</code></td>
+</tr>
+</tbody>
+</table>
+<details class="quote">
+<summary>Source code in <code>lume_epics/epics_server.py</code></summary>
+<table class="highlighttable">
+<tr>
+<td class="linenos">
+<div class="linenodiv">
+<pre><span></span>343
+344
+345
+346
+347
+348
+349
+350
+351
+352
+353
+354
+355
+356
+357
+358
+359
+360
+361
+362
+363
+364
+365
+366
+367
+368
+369
+370
+371
+372
+373
+374
+375
+376
+377
+378
+379
+380
+381
+382
+383
+384
+385
+386
+387
+388
+389
+390
+391
+392
+393
+394
+395
+396
+397
+398
+399
+400
+401
+402
+403
+404
+405
+406</pre>
+</div>
+</td>
+<td class="code">
+<div class="highlight">
+<pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+    <span class="bp">self</span><span class="p">,</span>
+    <span class="n">model_class</span><span class="p">:</span> <span class="n">SurrogateModel</span><span class="p">,</span>
+    <span class="n">input_variables</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">InputVariable</span><span class="p">],</span>
+    <span class="n">output_variables</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">OutputVariable</span><span class="p">],</span>
+    <span class="n">prefix</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">protocols</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"ca"</span><span class="p">,</span> <span class="s2">"pva"</span><span class="p">],</span>
+    <span class="n">model_kwargs</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="p">{},</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">"""Create OnlineSurrogateModel instance in the main thread and initialize output </span>
+<span class="sd">    variables by running with the input process variable state, input/output </span>
+<span class="sd">    variable tracking, start the server, create the process variables, and start </span>
+<span class="sd">    the driver.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        model_class (SurrogateModel): Surrogate model class to be instantiated.</span>
+
+<span class="sd">        input_variables (List[InputVariable]): Model input variables.</span>
+
+<span class="sd">        output_variables (Lis[OutputVariable]): Model output variables.</span>
+
+<span class="sd">        prefix (str): Prefix used to format process variables.</span>
+
+<span class="sd">        protocols (List[str]): List of protocols used to instantiate server.</span>
+
+<span class="sd">        model_kwargs (dict): Kwargs to instantiate model.</span>
+
+
+<span class="sd">    """</span>
+    <span class="c1"># check protocol conditions</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">protocols</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Protocol must be provided to start server."</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="nb">any</span><span class="p">([</span><span class="n">protocol</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">"ca"</span><span class="p">,</span> <span class="s2">"pva"</span><span class="p">]</span> <span class="k">for</span> <span class="n">protocol</span> <span class="ow">in</span> <span class="n">protocols</span><span class="p">]):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="s1">'Invalid protocol provided. Protocol options are "pva" (pvAccess) and "ca" (Channel Access).'</span>
+        <span class="p">)</span>
+
+    <span class="c1"># need these to be global to access from threads</span>
+    <span class="k">global</span> <span class="n">providers</span>
+    <span class="k">global</span> <span class="n">input_pvs</span>
+    <span class="k">global</span> <span class="n">model_loader</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">prefix</span> <span class="o">=</span> <span class="n">prefix</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">protocols</span> <span class="o">=</span> <span class="n">protocols</span>
+
+    <span class="n">providers</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">input_pvs</span> <span class="o">=</span> <span class="n">input_variables</span>
+
+    <span class="bp">self</span><span class="o">.</span><span class="n">input_variables</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">input_variables</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">output_variables</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">output_variables</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+
+    <span class="c1"># update inputs for starting value to be the default</span>
+    <span class="k">for</span> <span class="n">variable</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">input_variables</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">variable</span><span class="o">.</span><span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">variable</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">variable</span><span class="o">.</span><span class="n">default</span>
+
+    <span class="c1"># initialize loader for model</span>
+    <span class="n">model_loader</span> <span class="o">=</span> <span class="n">ModelLoader</span><span class="p">(</span><span class="n">model_class</span><span class="p">,</span> <span class="n">model_kwargs</span><span class="o">=</span><span class="n">model_kwargs</span><span class="p">,)</span>
+
+    <span class="c1"># get starting output from the model and set up output process variables</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">output_variables</span> <span class="o">=</span> <span class="n">model_loader</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">input_variables</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="s2">"pva"</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">protocols</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">initialize_pva_server</span><span class="p">()</span>
+</code></pre>
+</div>
+</td>
+</tr>
+</table>
+</details>
+</div>
+</div>
+<div class="doc doc-object doc-method">
+<h3 class="doc doc-heading" id="lume_epics.epics_server.Server.ca_thread_process">
+<code class="highlight language-python">
+ca_thread_process<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">exit_event</span><span class="p">)</span> </code>
+</h3>
+<div class="doc doc-contents">
+<p>Server thread for the Channel Access server that monitors the process 
+variable state and executes model.</p>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>exit_event</code></td>
+<td><code>Event</code></td>
+<td>
+<p>Threading event to be marked on process exit.</p>
+</td>
+<td><em>required</em></td>
+</tr>
+</tbody>
+</table>
+<details class="quote">
+<summary>Source code in <code>lume_epics/epics_server.py</code></summary>
+<table class="highlighttable">
+<tr>
+<td class="linenos">
+<div class="linenodiv">
+<pre><span></span>509
+510
+511
+512
+513
+514
+515
+516
+517
+518
+519
+520
+521
+522
+523
+524
+525
+526
+527
+528
+529
+530
+531
+532
+533
+534
+535
+536
+537
+538
+539
+540
+541
+542
+543
+544
+545</pre>
+</div>
+</td>
+<td class="code">
+<div class="highlight">
+<pre><span></span><code><span class="k">def</span> <span class="nf">ca_thread_process</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">exit_event</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">""" Server thread for the Channel Access server that monitors the process </span>
+<span class="sd">    variable state and executes model.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        exit_event (Event): Threading event to be marked on process exit.</span>
+
+<span class="sd">    """</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">initialize_ca_server</span><span class="p">()</span>
+
+    <span class="n">sim_state</span> <span class="o">=</span> <span class="p">{</span><span class="n">variable</span><span class="o">.</span><span class="n">name</span><span class="p">:</span> <span class="n">variable</span><span class="o">.</span><span class="n">value</span> <span class="k">for</span> <span class="n">variable</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">input_variables</span><span class="p">}</span>
+
+    <span class="k">while</span> <span class="ow">not</span> <span class="n">exit_event</span><span class="o">.</span><span class="n">is_set</span><span class="p">():</span>
+
+        <span class="c1"># process channel access transactions</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ca_server</span><span class="o">.</span><span class="n">process</span><span class="p">(</span><span class="mf">0.01</span><span class="p">)</span>
+
+        <span class="c1"># check if any input variable state has been updated</span>
+        <span class="c1"># if so, run model and update output variables</span>
+        <span class="k">while</span> <span class="ow">not</span> <span class="nb">all</span><span class="p">(</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">array_equal</span><span class="p">(</span><span class="n">sim_state</span><span class="p">[</span><span class="n">variable</span><span class="o">.</span><span class="n">name</span><span class="p">],</span> <span class="n">variable</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">variable</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">input_variables</span>
+        <span class="p">):</span>
+            <span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"Input changes detected. Executing model and updating Channel Access process variables."</span><span class="p">)</span>
+
+          <span class="c1">#  model_variables = copy.deepcopy(self.input_variables)</span>
+            <span class="n">model_output</span> <span class="o">=</span> <span class="n">model_loader</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">input_variables</span><span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">ca_driver</span><span class="o">.</span><span class="n">set_output_pvs</span><span class="p">(</span><span class="n">model_output</span><span class="p">)</span>
+
+            <span class="n">sim_state</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="n">variable</span><span class="o">.</span><span class="n">name</span><span class="p">:</span> <span class="n">variable</span><span class="o">.</span><span class="n">value</span> <span class="k">for</span> <span class="n">variable</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">input_variables</span>
+            <span class="p">}</span>
+
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"Terminating Channel Access server"</span><span class="p">)</span>
+</code></pre>
+</div>
+</td>
+</tr>
+</table>
+</details>
+</div>
+</div>
+<div class="doc doc-object doc-method">
+<h3 class="doc doc-heading" id="lume_epics.epics_server.Server.initialize_ca_server">
+<code class="highlight language-python">
+initialize_ca_server<span class="p">(</span><span class="bp">self</span><span class="p">)</span> </code>
+</h3>
+<div class="doc doc-contents">
+<p>Initialize the Channel Access server and driver. Sets the initial
+output variable values.</p>
+<details class="quote">
+<summary>Source code in <code>lume_epics/epics_server.py</code></summary>
+<table class="highlighttable">
+<tr>
+<td class="linenos">
+<div class="linenodiv">
+<pre><span></span>409
+410
+411
+412
+413
+414
+415
+416
+417
+418
+419
+420
+421
+422
+423
+424
+425
+426
+427
+428
+429
+430</pre>
+</div>
+</td>
+<td class="code">
+<div class="highlight">
+<pre><span></span><code><span class="k">def</span> <span class="nf">initialize_ca_server</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">"""Initialize the Channel Access server and driver. Sets the initial</span>
+<span class="sd">    output variable values.</span>
+
+<span class="sd">    """</span>
+    <span class="c1"># set up db for initializing process variables</span>
+    <span class="n">variable_dict</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="n">variable</span><span class="o">.</span><span class="n">name</span><span class="p">:</span> <span class="n">variable</span><span class="o">.</span><span class="n">value</span>
+        <span class="k">for</span> <span class="n">variable</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">input_variables</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_variables</span>
+    <span class="p">}</span>
+
+    <span class="c1"># initialize channel access server</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">ca_server</span> <span class="o">=</span> <span class="n">SimpleServer</span><span class="p">()</span>
+
+    <span class="c1"># create all process variables using the process variables stored in pvdb</span>
+    <span class="c1"># with the given prefix</span>
+    <span class="n">pvdb</span> <span class="o">=</span> <span class="n">build_pvdb</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">input_variables</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_variables</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">ca_server</span><span class="o">.</span><span class="n">createPV</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">prefix</span> <span class="o">+</span> <span class="s2">":"</span><span class="p">,</span> <span class="n">pvdb</span><span class="p">)</span>
+
+    <span class="c1"># set up driver for handing read and write requests to process variables</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">ca_driver</span> <span class="o">=</span> <span class="n">CADriver</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">input_variables</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_variables</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">ca_driver</span><span class="o">.</span><span class="n">set_output_pvs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">output_variables</span><span class="p">)</span>
+</code></pre>
+</div>
+</td>
+</tr>
+</table>
+</details>
+</div>
+</div>
+<div class="doc doc-object doc-method">
+<h3 class="doc doc-heading" id="lume_epics.epics_server.Server.initialize_pva_server">
+<code class="highlight language-python">
+initialize_pva_server<span class="p">(</span><span class="bp">self</span><span class="p">)</span> </code>
+</h3>
+<div class="doc doc-contents">
+<p>Set up pvAccess process variables for serving and start pvAccess server.</p>
+<details class="quote">
+<summary>Source code in <code>lume_epics/epics_server.py</code></summary>
+<table class="highlighttable">
+<tr>
+<td class="linenos">
+<div class="linenodiv">
+<pre><span></span>432
+433
+434
+435
+436
+437
+438
+439
+440
+441
+442
+443
+444
+445
+446
+447
+448
+449
+450
+451
+452
+453
+454
+455
+456
+457
+458
+459
+460
+461
+462
+463
+464
+465
+466
+467
+468
+469
+470
+471
+472
+473
+474
+475
+476
+477
+478
+479
+480
+481
+482
+483
+484
+485
+486
+487
+488
+489
+490
+491
+492
+493
+494
+495
+496
+497
+498
+499
+500
+501
+502
+503
+504
+505
+506
+507</pre>
+</div>
+</td>
+<td class="code">
+<div class="highlight">
+<pre><span></span><code><span class="k">def</span> <span class="nf">initialize_pva_server</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">"""Set up pvAccess process variables for serving and start pvAccess server.</span>
+
+<span class="sd">    """</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"Initializing pvAccess server"</span><span class="p">)</span>
+    <span class="c1"># initialize global inputs</span>
+    <span class="k">for</span> <span class="n">variable</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">input_variables</span><span class="p">:</span>
+        <span class="c1"># input_pvs[variable.name] = variable.value</span>
+        <span class="n">pvname</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">prefix</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">variable</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">"</span>
+
+        <span class="c1"># prepare scalar variable types</span>
+        <span class="k">if</span> <span class="n">variable</span><span class="o">.</span><span class="n">variable_type</span> <span class="o">==</span> <span class="s2">"scalar"</span><span class="p">:</span>
+            <span class="n">pv</span> <span class="o">=</span> <span class="n">SharedPV</span><span class="p">(</span>
+                <span class="n">handler</span><span class="o">=</span><span class="n">PVAccessInputHandler</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">prefix</span>
+                <span class="p">),</span>  <span class="c1"># Use PVAccessInputHandler class to handle callbacks</span>
+                <span class="n">nt</span><span class="o">=</span><span class="n">NTScalar</span><span class="p">(</span><span class="s2">"d"</span><span class="p">),</span>
+                <span class="n">initial</span><span class="o">=</span><span class="n">variable</span><span class="o">.</span><span class="n">value</span><span class="p">,</span>
+            <span class="p">)</span>
+
+        <span class="c1"># prepare image variable types</span>
+        <span class="k">elif</span> <span class="n">variable</span><span class="o">.</span><span class="n">variable_type</span> <span class="o">==</span> <span class="s2">"image"</span><span class="p">:</span>
+            <span class="n">nd_array</span> <span class="o">=</span> <span class="n">variable</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="n">NTNDArrayData</span><span class="p">)</span>
+
+            <span class="n">nd_array</span><span class="o">.</span><span class="n">attrib</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s2">"x_min"</span><span class="p">:</span> <span class="n">variable</span><span class="o">.</span><span class="n">x_min</span><span class="p">,</span>
+                <span class="s2">"y_min"</span><span class="p">:</span> <span class="n">variable</span><span class="o">.</span><span class="n">y_min</span><span class="p">,</span>
+                <span class="s2">"x_max"</span><span class="p">:</span> <span class="n">variable</span><span class="o">.</span><span class="n">x_max</span><span class="p">,</span>
+                <span class="s2">"y_max"</span><span class="p">:</span> <span class="n">variable</span><span class="o">.</span><span class="n">y_max</span><span class="p">,</span>
+            <span class="p">}</span>
+
+            <span class="n">pv</span> <span class="o">=</span> <span class="n">SharedPV</span><span class="p">(</span>
+                <span class="n">handler</span><span class="o">=</span><span class="n">PVAccessInputHandler</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">prefix</span>
+                <span class="p">),</span>  <span class="c1"># Use PVAccessInputHandler class to handle callbacks</span>
+                <span class="n">nt</span><span class="o">=</span><span class="n">NTNDArray</span><span class="p">(),</span>
+                <span class="n">initial</span><span class="o">=</span><span class="n">nd_array</span><span class="p">,</span>
+            <span class="p">)</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">"Unsupported variable type provided: </span><span class="si">%s</span><span class="s2">"</span><span class="p">,</span> <span class="n">variable</span><span class="o">.</span><span class="n">variable_type</span>
+            <span class="p">)</span>
+
+        <span class="n">providers</span><span class="p">[</span><span class="n">pvname</span><span class="p">]</span> <span class="o">=</span> <span class="n">pv</span>
+
+    <span class="c1"># use default handler for the output process variables</span>
+    <span class="c1"># updates to output pvs are handled from post calls within the input update</span>
+    <span class="k">for</span> <span class="n">variable</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_variables</span><span class="p">:</span>
+        <span class="n">pvname</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">prefix</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">variable</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">"</span>
+        <span class="k">if</span> <span class="n">variable</span><span class="o">.</span><span class="n">variable_type</span> <span class="o">==</span> <span class="s2">"scalar"</span><span class="p">:</span>
+            <span class="n">pv</span> <span class="o">=</span> <span class="n">SharedPV</span><span class="p">(</span><span class="n">nt</span><span class="o">=</span><span class="n">NTScalar</span><span class="p">(),</span> <span class="n">initial</span><span class="o">=</span><span class="n">variable</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+
+        <span class="k">elif</span> <span class="n">variable</span><span class="o">.</span><span class="n">variable_type</span> <span class="o">==</span> <span class="s2">"image"</span><span class="p">:</span>
+
+            <span class="n">nd_array</span> <span class="o">=</span> <span class="n">variable</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="n">NTNDArrayData</span><span class="p">)</span>
+
+            <span class="c1"># get dw and dh from model output</span>
+            <span class="n">nd_array</span><span class="o">.</span><span class="n">attrib</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s2">"x_min"</span><span class="p">:</span> <span class="n">variable</span><span class="o">.</span><span class="n">x_min</span><span class="p">,</span>
+                <span class="s2">"y_min"</span><span class="p">:</span> <span class="n">variable</span><span class="o">.</span><span class="n">y_min</span><span class="p">,</span>
+                <span class="s2">"x_max"</span><span class="p">:</span> <span class="n">variable</span><span class="o">.</span><span class="n">x_max</span><span class="p">,</span>
+                <span class="s2">"y_max"</span><span class="p">:</span> <span class="n">variable</span><span class="o">.</span><span class="n">y_max</span><span class="p">,</span>
+            <span class="p">}</span>
+
+            <span class="n">pv</span> <span class="o">=</span> <span class="n">SharedPV</span><span class="p">(</span><span class="n">nt</span><span class="o">=</span><span class="n">NTNDArray</span><span class="p">(),</span> <span class="n">initial</span><span class="o">=</span><span class="n">nd_array</span><span class="p">)</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">"Unsupported variable type provided: </span><span class="si">%s</span><span class="s2">"</span><span class="p">,</span> <span class="n">variable</span><span class="o">.</span><span class="n">variable_type</span>
+            <span class="p">)</span>
+
+        <span class="n">providers</span><span class="p">[</span><span class="n">pvname</span><span class="p">]</span> <span class="o">=</span> <span class="n">pv</span>
+
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">pass</span>  <span class="c1"># throw exception for incorrect data type</span>
+</code></pre>
+</div>
+</td>
+</tr>
+</table>
+</details>
+</div>
+</div>
+<div class="doc doc-object doc-method">
+<h3 class="doc doc-heading" id="lume_epics.epics_server.Server.start">
+<code class="highlight language-python">
+start<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">monitor</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> </code>
+</h3>
+<div class="doc doc-contents">
+<p>Starts server using set server protocol(s).</p>
+<p>Args: 
+    monitor (bool): Indicates whether to run the server in the background
+        or to continually monitor. If monitor = False, the server must be
+        explicitely stopped using server.stop()</p>
+<details class="quote">
+<summary>Source code in <code>lume_epics/epics_server.py</code></summary>
+<table class="highlighttable">
+<tr>
+<td class="linenos">
+<div class="linenodiv">
+<pre><span></span>565
+566
+567
+568
+569
+570
+571
+572
+573
+574
+575
+576
+577
+578
+579
+580
+581
+582
+583
+584
+585
+586
+587
+588
+589
+590
+591
+592
+593
+594
+595
+596
+597
+598</pre>
+</div>
+</td>
+<td class="code">
+<div class="highlight">
+<pre><span></span><code><span class="k">def</span> <span class="nf">start</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">monitor</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">"""Starts server using set server protocol(s).</span>
+
+<span class="sd">    Args: </span>
+<span class="sd">        monitor (bool): Indicates whether to run the server in the background</span>
+<span class="sd">            or to continually monitor. If monitor = False, the server must be</span>
+<span class="sd">            explicitely stopped using server.stop()</span>
+
+<span class="sd">    """</span>
+
+    <span class="c1"># set up exit event for threads</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">exit_event</span> <span class="o">=</span> <span class="n">Event</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="s2">"ca"</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">protocols</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">start_ca_server</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="s2">"pva"</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">protocols</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">start_pva_server</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="n">monitor</span><span class="p">:</span>
+        <span class="k">while</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">exit_event</span><span class="o">.</span><span class="n">is_set</span><span class="p">():</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)</span>
+
+            <span class="k">except</span> <span class="ne">KeyboardInterrupt</span><span class="p">:</span>
+                <span class="c1"># Ctrl-C handling and send kill to threads</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"Stopping servers"</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">exit_event</span><span class="o">.</span><span class="n">set</span><span class="p">()</span>
+                <span class="k">if</span> <span class="s2">"ca"</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">protocols</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">ca_thread</span><span class="o">.</span><span class="n">join</span><span class="p">()</span>
+
+                <span class="k">if</span> <span class="s2">"pva"</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">protocols</span><span class="p">:</span>
+                    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"Stopping pvAccess server"</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">pva_server</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
+</code></pre>
+</div>
+</td>
+</tr>
+</table>
+</details>
+</div>
+</div>
+<div class="doc doc-object doc-method">
+<h3 class="doc doc-heading" id="lume_epics.epics_server.Server.start_ca_server">
+<code class="highlight language-python">
+start_ca_server<span class="p">(</span><span class="bp">self</span><span class="p">)</span> </code>
+</h3>
+<div class="doc doc-contents">
+<p>Starts Channel Access server thread.</p>
+<details class="quote">
+<summary>Source code in <code>lume_epics/epics_server.py</code></summary>
+<table class="highlighttable">
+<tr>
+<td class="linenos">
+<div class="linenodiv">
+<pre><span></span>547
+548
+549
+550
+551
+552
+553
+554
+555
+556</pre>
+</div>
+</td>
+<td class="code">
+<div class="highlight">
+<pre><span></span><code><span class="k">def</span> <span class="nf">start_ca_server</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">"""Starts Channel Access server thread.</span>
+
+<span class="sd">    """</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"Initializing channel access server"</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">ca_thread</span> <span class="o">=</span> <span class="n">Thread</span><span class="p">(</span>
+        <span class="n">target</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ca_thread_process</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">exit_event</span><span class="p">,)</span>
+    <span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">ca_thread</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"Channel access server started"</span><span class="p">)</span>
+</code></pre>
+</div>
+</td>
+</tr>
+</table>
+</details>
+</div>
+</div>
+<div class="doc doc-object doc-method">
+<h3 class="doc doc-heading" id="lume_epics.epics_server.Server.start_pva_server">
+<code class="highlight language-python">
+start_pva_server<span class="p">(</span><span class="bp">self</span><span class="p">)</span> </code>
+</h3>
+<div class="doc doc-contents">
+<p>Starts pvAccess server. </p>
+<details class="quote">
+<summary>Source code in <code>lume_epics/epics_server.py</code></summary>
+<table class="highlighttable">
+<tr>
+<td class="linenos">
+<div class="linenodiv">
+<pre><span></span>558
+559
+560
+561
+562
+563</pre>
+</div>
+</td>
+<td class="code">
+<div class="highlight">
+<pre><span></span><code><span class="k">def</span> <span class="nf">start_pva_server</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">""" Starts pvAccess server. </span>
+
+<span class="sd">    """</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">pva_server</span> <span class="o">=</span> <span class="n">P4PServer</span><span class="p">(</span><span class="n">providers</span><span class="o">=</span><span class="p">[</span><span class="n">providers</span><span class="p">])</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"pvAccess server started"</span><span class="p">)</span>
+</code></pre>
+</div>
+</td>
+</tr>
+</table>
+</details>
+</div>
+</div>
+<div class="doc doc-object doc-method">
+<h3 class="doc doc-heading" id="lume_epics.epics_server.Server.stop">
+<code class="highlight language-python">
+stop<span class="p">(</span><span class="bp">self</span><span class="p">)</span> </code>
+</h3>
+<div class="doc doc-contents">
+<p>Stops the server.</p>
+<details class="quote">
+<summary>Source code in <code>lume_epics/epics_server.py</code></summary>
+<table class="highlighttable">
+<tr>
+<td class="linenos">
+<div class="linenodiv">
+<pre><span></span>600
+601
+602
+603
+604
+605
+606
+607
+608
+609
+610
+611</pre>
+</div>
+</td>
+<td class="code">
+<div class="highlight">
+<pre><span></span><code><span class="k">def</span> <span class="nf">stop</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">"""Stops the server.</span>
+
+<span class="sd">    """</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"Stopping server"</span><span class="p">)</span>
+    <span class="k">if</span> <span class="s2">"ca"</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">protocols</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">exit_event</span><span class="o">.</span><span class="n">set</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ca_thread</span><span class="o">.</span><span class="n">join</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="s2">"pva"</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">protocols</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"Stopping PVAcess server"</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pva_server</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
+</code></pre>
+</div>
+</td>
+</tr>
+</table>
+</details>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="doc doc-object doc-function">
+<h2 class="doc doc-heading" id="lume_epics.epics_server.build_pvdb">
+<code class="highlight language-python">
+build_pvdb<span class="p">(</span><span class="n">variables</span><span class="p">)</span> </code>
+</h2>
+<div class="doc doc-contents">
+<p>Utility function for building dictionary (pvdb) used to initialize the channel
+access server.</p>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>variables</code></td>
+<td><code>List[lume_model.variables.Variable]</code></td>
+<td>
+<p>List of lume_model variables to be served with</p>
+</td>
+<td><em>required</em></td>
+</tr>
+</tbody>
+</table>
+<details class="quote">
+<summary>Source code in <code>lume_epics/epics_server.py</code></summary>
+<table class="highlighttable">
+<tr>
+<td class="linenos">
+<div class="linenodiv">
+<pre><span></span> 31
+ 32
+ 33
+ 34
+ 35
+ 36
+ 37
+ 38
+ 39
+ 40
+ 41
+ 42
+ 43
+ 44
+ 45
+ 46
+ 47
+ 48
+ 49
+ 50
+ 51
+ 52
+ 53
+ 54
+ 55
+ 56
+ 57
+ 58
+ 59
+ 60
+ 61
+ 62
+ 63
+ 64
+ 65
+ 66
+ 67
+ 68
+ 69
+ 70
+ 71
+ 72
+ 73
+ 74
+ 75
+ 76
+ 77
+ 78
+ 79
+ 80
+ 81
+ 82
+ 83
+ 84
+ 85
+ 86
+ 87
+ 88
+ 89
+ 90
+ 91
+ 92
+ 93
+ 94
+ 95
+ 96
+ 97
+ 98
+ 99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123</pre>
+</div>
+</td>
+<td class="code">
+<div class="highlight">
+<pre><span></span><code><span class="k">def</span> <span class="nf">build_pvdb</span><span class="p">(</span><span class="n">variables</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Variable</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+    <span class="sd">"""Utility function for building dictionary (pvdb) used to initialize the channel</span>
+<span class="sd">    access server.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        variables (List[Variable]): List of lume_model variables to be served with</span>
+<span class="sd">        channel access server.</span>
+
+<span class="sd">    """</span>
+    <span class="n">pvdb</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="k">for</span> <span class="n">variable</span> <span class="ow">in</span> <span class="n">variables</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">variable</span><span class="o">.</span><span class="n">variable_type</span> <span class="o">==</span> <span class="s2">"image"</span><span class="p">:</span>
+
+            <span class="c1"># infer color mode</span>
+            <span class="k">if</span> <span class="n">variable</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+                <span class="n">color_mode</span> <span class="o">=</span> <span class="mi">0</span>
+
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">"Color mode cannot be inferred from image shape."</span><span class="p">)</span>
+
+            <span class="c1"># assign default PVS</span>
+            <span class="n">pvdb</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
+                <span class="p">{</span>
+                    <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">variable</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">:NDimensions_RBV"</span><span class="p">:</span> <span class="p">{</span>
+                        <span class="s2">"type"</span><span class="p">:</span> <span class="s2">"float"</span><span class="p">,</span>
+                        <span class="s2">"prec"</span><span class="p">:</span> <span class="n">variable</span><span class="o">.</span><span class="n">precision</span><span class="p">,</span>
+                        <span class="s2">"value"</span><span class="p">:</span> <span class="n">variable</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">ndim</span><span class="p">,</span>
+                    <span class="p">},</span>
+                    <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">variable</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">:Dimensions_RBV"</span><span class="p">:</span> <span class="p">{</span>
+                        <span class="s2">"type"</span><span class="p">:</span> <span class="s2">"int"</span><span class="p">,</span>
+                        <span class="s2">"prec"</span><span class="p">:</span> <span class="n">variable</span><span class="o">.</span><span class="n">precision</span><span class="p">,</span>
+                        <span class="s2">"count"</span><span class="p">:</span> <span class="n">variable</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">ndim</span><span class="p">,</span>
+                        <span class="s2">"value"</span><span class="p">:</span> <span class="n">variable</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span>
+                    <span class="p">},</span>
+                    <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">variable</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">:ArraySizeX_RBV"</span><span class="p">:</span> <span class="p">{</span>
+                        <span class="s2">"type"</span><span class="p">:</span> <span class="s2">"int"</span><span class="p">,</span>
+                        <span class="s2">"value"</span><span class="p">:</span> <span class="n">variable</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                    <span class="p">},</span>
+                    <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">variable</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">:ArraySizeY_RBV"</span><span class="p">:</span> <span class="p">{</span>
+                        <span class="s2">"type"</span><span class="p">:</span> <span class="s2">"int"</span><span class="p">,</span>
+                        <span class="s2">"value"</span><span class="p">:</span> <span class="n">variable</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+                    <span class="p">},</span>
+                    <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">variable</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">:ArraySize_RBV"</span><span class="p">:</span> <span class="p">{</span>
+                        <span class="s2">"type"</span><span class="p">:</span> <span class="s2">"int"</span><span class="p">,</span>
+                        <span class="s2">"value"</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="n">variable</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">shape</span><span class="p">)),</span>
+                    <span class="p">},</span>
+                    <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">variable</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">:ArrayData_RBV"</span><span class="p">:</span> <span class="p">{</span>
+                        <span class="s2">"type"</span><span class="p">:</span> <span class="s2">"float"</span><span class="p">,</span>
+                        <span class="s2">"prec"</span><span class="p">:</span> <span class="n">variable</span><span class="o">.</span><span class="n">precision</span><span class="p">,</span>
+                        <span class="s2">"count"</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="n">variable</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">shape</span><span class="p">)),</span>
+                        <span class="s2">"value"</span><span class="p">:</span> <span class="n">variable</span><span class="o">.</span><span class="n">value</span><span class="p">,</span>
+                        <span class="c1">#   "units": variable.units,</span>
+                    <span class="p">},</span>
+                    <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">variable</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">:MinX_RBV"</span><span class="p">:</span> <span class="p">{</span>
+                        <span class="s2">"type"</span><span class="p">:</span> <span class="s2">"float"</span><span class="p">,</span>
+                        <span class="s2">"value"</span><span class="p">:</span> <span class="n">variable</span><span class="o">.</span><span class="n">x_min</span><span class="p">,</span>
+                    <span class="p">},</span>
+                    <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">variable</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">:MinY_RBV"</span><span class="p">:</span> <span class="p">{</span>
+                        <span class="s2">"type"</span><span class="p">:</span> <span class="s2">"float"</span><span class="p">,</span>
+                        <span class="s2">"value"</span><span class="p">:</span> <span class="n">variable</span><span class="o">.</span><span class="n">y_min</span><span class="p">,</span>
+                    <span class="p">},</span>
+                    <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">variable</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">:MaxX_RBV"</span><span class="p">:</span> <span class="p">{</span>
+                        <span class="s2">"type"</span><span class="p">:</span> <span class="s2">"float"</span><span class="p">,</span>
+                        <span class="s2">"value"</span><span class="p">:</span> <span class="n">variable</span><span class="o">.</span><span class="n">x_max</span><span class="p">,</span>
+                    <span class="p">},</span>
+                    <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">variable</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">:MaxY_RBV"</span><span class="p">:</span> <span class="p">{</span>
+                        <span class="s2">"type"</span><span class="p">:</span> <span class="s2">"float"</span><span class="p">,</span>
+                        <span class="s2">"value"</span><span class="p">:</span> <span class="n">variable</span><span class="o">.</span><span class="n">y_max</span><span class="p">,</span>
+                    <span class="p">},</span>
+                    <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">variable</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">:ColorMode_RBV"</span><span class="p">:</span> <span class="p">{</span>
+                        <span class="s2">"type"</span><span class="p">:</span> <span class="s2">"int"</span><span class="p">,</span>
+                        <span class="s2">"value"</span><span class="p">:</span> <span class="n">color_mode</span><span class="p">,</span>
+                    <span class="p">},</span>
+                <span class="p">}</span>
+            <span class="p">)</span>
+
+            <span class="k">if</span> <span class="s2">"units"</span> <span class="ow">in</span> <span class="n">variable</span><span class="o">.</span><span class="n">__fields_set__</span><span class="p">:</span>
+                <span class="n">pvdb</span><span class="p">[</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">variable</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">:ArrayData_RBV"</span><span class="p">][</span><span class="s2">"units"</span><span class="p">]</span> <span class="o">=</span> <span class="n">variable</span><span class="o">.</span><span class="n">units</span>
+
+            <span class="c1"># placeholder for color images, not yet implemented</span>
+            <span class="k">if</span> <span class="n">variable</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">ndim</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">:</span>
+                <span class="n">pvdb</span><span class="p">[</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">variable</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">:ArraySizeZ_RBV"</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+                    <span class="s2">"type"</span><span class="p">:</span> <span class="s2">"int"</span><span class="p">,</span>
+                    <span class="s2">"value"</span><span class="p">:</span> <span class="n">variable</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span>
+                <span class="p">}</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">pvdb</span><span class="p">[</span><span class="n">variable</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">variable</span><span class="o">.</span><span class="n">dict</span><span class="p">(</span>
+                <span class="n">exclude_unset</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">by_alias</span><span class="o">=</span><span class="kc">True</span>
+            <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">pvdb</span>
+</code></pre>
+</div>
+</td>
+</tr>
+</table>
+</details>
+</div>
+</div>
+</div>
+</div>
+</div>
+</article>
+</div>
+</div>
+</main>
+<footer class="md-footer">
+<div class="md-footer-nav">
+<nav aria-label="Footer" class="md-footer-nav__inner md-grid">
+<a class="md-footer-nav__link md-footer-nav__link--prev" href="../Model/" rel="prev" title="Model">
+<div class="md-footer-nav__button md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"></path></svg>
+</div>
+<div class="md-footer-nav__title">
+<div class="md-ellipsis">
+<span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Model
+              </div>
+</div>
+</a>
+</nav>
+</div>
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-footer-copyright">
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" rel="noopener" target="_blank">
+          Material for MkDocs
+        </a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<script src="../assets/javascripts/vendor.d710d30a.min.js"></script>
+<script src="../assets/javascripts/bundle.b39636ac.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
+<script>
+        app = initialize({
+          base: "..",
+          features: [],
+          search: Object.assign({
+            worker: "../assets/javascripts/worker/search.a68abb33.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+</body>
+</html>

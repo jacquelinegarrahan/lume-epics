@@ -1,0 +1,503 @@
+
+<!DOCTYPE html>
+
+<html class="no-js" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<link href="https://lume-epics.github.io/BokehServer/" rel="canonical"/>
+<link href="../assets/images/favicon.png" rel="shortcut icon"/>
+<meta content="mkdocs-1.1.2, mkdocs-material-5.4.0" name="generator"/>
+<title>Bokeh Server - lume-epics</title>
+<link href="../assets/stylesheets/main.fe0cca5b.min.css" rel="stylesheet"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&amp;display=fallback" rel="stylesheet"/>
+<style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
+</head>
+<body dir="ltr">
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#bokeh-serve-client-tutorial">
+          Skip to content
+        </a>
+</div>
+<div data-md-component="announce">
+</div>
+<header class="md-header" data-md-component="header">
+<nav aria-label="Header" class="md-header-nav md-grid">
+<a aria-label="lume-epics" class="md-header-nav__button md-logo" href="https://lume-epics.github.io/" title="lume-epics">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"></path></svg>
+</a>
+<label class="md-header-nav__button md-icon" for="__drawer">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"></path></svg>
+</label>
+<div class="md-header-nav__title" data-md-component="header-title">
+<div class="md-header-nav__ellipsis">
+<span class="md-header-nav__topic md-ellipsis">
+            lume-epics
+          </span>
+<span class="md-header-nav__topic md-ellipsis">
+            
+              Bokeh Server
+            
+          </span>
+</div>
+</div>
+<div class="md-header-nav__source">
+<a class="md-source" href="https://github.com/slaclab/lume-epics/" title="Go to repository">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"></path></svg>
+</div>
+<div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Navigation" class="md-nav md-nav--primary" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="lume-epics" class="md-nav__button md-logo" href="https://lume-epics.github.io/" title="lume-epics">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"></path></svg>
+</a>
+    lume-epics
+  </label>
+<div class="md-nav__source">
+<a class="md-source" href="https://github.com/slaclab/lume-epics/" title="Go to repository">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"></path></svg>
+</div>
+<div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+</div>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href=".." title="Overview">
+      Overview
+    </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../Install/" title="Install">
+      Install
+    </a>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" data-md-toggle="nav-3" id="nav-3" type="checkbox"/>
+<label class="md-nav__link" for="nav-3">
+      Tutorial
+      <span class="md-nav__icon md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"></path></svg>
+</span>
+</label>
+<nav aria-label="Tutorial" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="nav-3">
+<span class="md-nav__icon md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"></path></svg>
+</span>
+        Tutorial
+      </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--active">
+<input class="md-nav__toggle md-toggle" data-md-toggle="toc" id="__toc" type="checkbox"/>
+<label class="md-nav__link md-nav__link--active" for="__toc">
+        Bokeh Server
+        <span class="md-nav__icon md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 9h14V7H3v2m0 4h14v-2H3v2m0 4h14v-2H3v2m16 0h2v-2h-2v2m0-10v2h2V7h-2m0 6h2v-2h-2v2z"></path></svg>
+</span>
+</label>
+<a class="md-nav__link md-nav__link--active" href="./" title="Bokeh Server">
+      Bokeh Server
+    </a>
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"></path></svg>
+</span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#note">
+    Note:
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#set-up-conda-environment">
+    Set up conda environment
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#create-model">
+    Create model
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#create-server">
+    Create server
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#set-up-the-client">
+    Set up the client
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../Jupyter/" title="Jupyter Notebook Demo">
+      Jupyter Notebook Demo
+    </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="nav-4" id="nav-4" type="checkbox"/>
+<label class="md-nav__link" for="nav-4">
+      Documentation
+      <span class="md-nav__icon md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"></path></svg>
+</span>
+</label>
+<nav aria-label="Documentation" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="nav-4">
+<span class="md-nav__icon md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"></path></svg>
+</span>
+        Documentation
+      </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../Layout/" title="Layout">
+      Layout
+    </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="nav-4-2" id="nav-4-2" type="checkbox"/>
+<label class="md-nav__link" for="nav-4-2">
+      Client
+      <span class="md-nav__icon md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"></path></svg>
+</span>
+</label>
+<nav aria-label="Client" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="nav-4-2">
+<span class="md-nav__icon md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"></path></svg>
+</span>
+        Client
+      </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../Controller/" title="Controller">
+      Controller
+    </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../Monitors/" title="Monitors">
+      Monitors
+    </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../Widgets/" title="Widgets">
+      Widgets
+    </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../Model/" title="Model">
+      Model
+    </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../Server/" title="Server">
+      Server
+    </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"></path></svg>
+</span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#note">
+    Note:
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#set-up-conda-environment">
+    Set up conda environment
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#create-model">
+    Create model
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#create-server">
+    Create server
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#set-up-the-client">
+    Set up the client
+  </a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content">
+<article class="md-content__inner md-typeset">
+<a class="md-content__button md-icon" href="https://github.com/slaclab/lume-epics/edit/master/docs/BokehServer.md" title="Edit this page">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"></path></svg>
+</a>
+<h1 id="bokeh-serve-client-tutorial">Bokeh-serve client tutorial</h1>
+<p>For this tutorial, we will create a simple model which generates an image from sampled from a uniform distribution between the two scalar input variables. This model will be served using the lume-epics server and a bokeh client will be used to display simple sliders for controlling the image, and the image output. </p>
+<h3 id="note">Note:</h3>
+<p>The code for this example can be found in <a href="https://github.com/slaclab/lume-epics/examples">lume-epics/examples</a></p>
+<h2 id="set-up-conda-environment">Set up conda environment</h2>
+<p><code>$ conda create -n lume-epics-demo python=3.7</code></p>
+<p><code>$ conda activate lume-epics-demo</code></p>
+<p><code>$ conda install numpy</code></p>
+<p>Install lume-model and lume-epics from the <code>jrgarrahan</code> conda channel:</p>
+<p><code>$ conda install lume-model lume-epics -c jrgarrahan</code></p>
+<h2 id="create-model">Create model</h2>
+<p>Create a new file named <code>model.py</code>. At the top of the file, import the <code>lume-model</code> <code>SurrogateModel</code> base class, <code>lume-model</code> <code>ScalarInputVariable</code> and <code>ImageOutputVariable</code>, <code>numpy</code>, and the <code>lume-model</code> <code>save_variables</code> utility.</p>
+<pre><code>import numpy as np
+from lume_model.variables import ScalarInputVariable, ImageOutputVariable
+from lume_model.models import SurrogateModel
+from lume_model.utils import save_variables
+</code></pre>
+<p>Next, define the demo model. Here, we define the input and output variables as keyword arguments. In order for the evaluate method to execute correctly, these 
+passed variables must be dictionaries of variables with corresponding types and names. These could also be defined as class attributes.</p>
+<pre><code>class DemoModel(SurrogateModel):
+    def __init__(self, input_variables=None, output_variables=None):
+        self.input_variables = input_variables
+        self.output_variables = output_variables
+
+    def evaluate(self, input_variables):
+        self.output_variables["output1"].value = np.random.uniform(
+            self.input_variables["input1"].value, # lower dist bound
+            self.input_variables["input2"].value, # upper dist bound
+            (50,50)
+        )
+
+        return list(self.output_variables.values())
+</code></pre>
+<p>Now, we use the main method to define and save the input and output variables. This is done in the main method because the server will import and execute the <code>DemoModel</code> class. </p>
+<pre><code>if __name__ == "__main__":
+    input_variables = {
+        "input1": ScalarInputVariable(
+            name="input1", 
+            value=1, 
+            default=1, 
+            range=[0, 256]
+        ),
+        "input2": ScalarInputVariable(
+            name="input2", 
+            value=2, 
+            default=2, 
+            range=[0, 256]),
+    }
+
+    output_variables = {
+        "output1": ImageOutputVariable(
+            name="output1", 
+            axis_labels=["value_1", "value_2"], 
+            axis_units=["mm", "mm"], 
+            x_min=0, 
+            x_max=50, 
+            y_min=0, 
+            y_max=50
+        )
+    }
+
+    variable_filename = "variables.pickle"
+
+    save_variables(
+        input_variables, 
+        output_variables, 
+        variable_filename
+    )
+</code></pre>
+<h2 id="create-server">Create server</h2>
+<p>Create a new file named <code>server.py</code>. Import the <code>DemoModel</code>, load the variables, and configure the server. </p>
+<pre><code>from examples.model import DemoModel
+from lume_epics.epics_server import Server
+from lume_model.utils import load_variables
+
+variable_filename = "variables.pickle"
+input_variables, output_variables = load_variables(variable_filename)
+
+# pass the input + output variable to initialize the classs
+model_kwargs = {
+    "input_variables": input_variables,
+    "output_variables": output_variables
+}
+
+prefix = "test"
+server = Server(
+    DemoModel, 
+    input_variables, 
+    output_variables, 
+    prefix,
+    model_kwargs=model_kwargs
+)
+# monitor = False does not loop in main thread
+server.start(monitor=True)
+</code></pre>
+<h2 id="set-up-the-client">Set up the client</h2>
+<p>Create a new file named <code>client.py</code>. Add the following imports:</p>
+<pre><code>from bokeh.io import curdoc
+from bokeh import palettes
+from bokeh.layouts import column, row
+from bokeh.models import LinearColorMapper
+
+from lume_epics.client.controller import Controller
+from lume_model.utils import load_variables
+
+from lume_epics.client.widgets.plots import ImagePlot
+from lume_epics.client.widgets.controls import build_sliders
+from lume_epics.client.controller import Controller
+</code></pre>
+<p>Set up the <code>Controller</code> for interfacing with EPICS process variables:</p>
+<pre><code>controller = Controller("ca")
+</code></pre>
+<p>Load variables from your variable file:</p>
+<pre><code>input_variables, output_variables = load_variables("variables.pickle")
+</code></pre>
+<p>Prepare sliders:</p>
+<pre><code>prefix = "test"
+
+# use all input variables for slider
+# prepare as list for rendering
+input_variables = list(input_variables.values())
+
+# build sliders
+sliders = build_sliders(input_variables, controller, prefix)
+</code></pre>
+<p>Setup the image output variable:</p>
+<pre><code>output_variables = list(output_variables.values())
+
+# create image plot
+image_plot = ImagePlot(output_variables, controller, prefix)
+
+# build plot using a bokeh color map
+pal = palettes.viridis(256)
+color_mapper = LinearColorMapper(palette=pal, low=0, high=256)
+
+image_plot.build_plot(color_mapper=color_mapper)
+</code></pre>
+<p>The image plot will require a callback to continually update the plot to display the lates process variables. Here we define the callback function:</p>
+<pre><code># Set up image update callback
+def image_update_callback():
+    image_plot.update()
+
+</code></pre>
+<p>Render the application using bokeh <code>curdoc()</code> function. The image_plot object's <code>plot</code> attribute must be used in formatting:</p>
+<pre><code>curdoc().title = "Demo App"
+curdoc().add_root(
+            row(
+                column(sliders, width=350), column(image_plot.plot)
+                ) 
+    )
+
+curdoc().add_periodic_callback(image_update_callback, 250)
+</code></pre>
+<h1 id="run-demo">Run demo</h1>
+<p>Now, open two terminal windows and navigate to the directory with your demo files. Activate the <code>lume-epics-demo</code> environment. In the first, execute the command:</p>
+<p><code>$ python example/server.py</code></p>
+<p>In the second, serve the bokeh client using the command:</p>
+<p><code>$ bokeh serve --show example/client.py</code></p>
+<p>A browser window will display the user interface. Both the client and server may be terminated with keyboard interrupt (<code>Ctrl+C</code>).</p>
+</article>
+</div>
+</div>
+</main>
+<footer class="md-footer">
+<div class="md-footer-nav">
+<nav aria-label="Footer" class="md-footer-nav__inner md-grid">
+<a class="md-footer-nav__link md-footer-nav__link--prev" href="../Install/" rel="prev" title="Install">
+<div class="md-footer-nav__button md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"></path></svg>
+</div>
+<div class="md-footer-nav__title">
+<div class="md-ellipsis">
+<span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Install
+              </div>
+</div>
+</a>
+<a class="md-footer-nav__link md-footer-nav__link--next" href="../Jupyter/" rel="next" title="Jupyter Notebook Demo">
+<div class="md-footer-nav__title">
+<div class="md-ellipsis">
+<span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Jupyter Notebook Demo
+              </div>
+</div>
+<div class="md-footer-nav__button md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"></path></svg>
+</div>
+</a>
+</nav>
+</div>
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-footer-copyright">
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" rel="noopener" target="_blank">
+          Material for MkDocs
+        </a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<script src="../assets/javascripts/vendor.d710d30a.min.js"></script>
+<script src="../assets/javascripts/bundle.b39636ac.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
+<script>
+        app = initialize({
+          base: "..",
+          features: [],
+          search: Object.assign({
+            worker: "../assets/javascripts/worker/search.a68abb33.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+</body>
+</html>
