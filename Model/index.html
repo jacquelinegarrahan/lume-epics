@@ -358,24 +358,6 @@ __init__<span class="p">(</span><span class="bp">self</span><span class="p">,</s
 </td>
 <td><em>required</em></td>
 </tr>
-<tr>
-<td><code>input_variables</code></td>
-<td><code>List[InputVariable]</code></td>
-<td>
-<p>List of lume-model variables to use as 
-inputs</p>
-</td>
-<td><em>required</em></td>
-</tr>
-<tr>
-<td><code>ouput_variables</code></td>
-<td><code>List[OutputVariable]</code></td>
-<td>
-<p>List of lume-model variables to use as 
-outputs</p>
-</td>
-<td><em>required</em></td>
-</tr>
 </tbody>
 </table>
 <details class="quote">
@@ -398,13 +380,7 @@ outputs</p>
 44
 45
 46
-47
-48
-49
-50
-51
-52
-53</pre>
+47</pre>
 </div>
 </td>
 <td class="code">
@@ -418,12 +394,6 @@ outputs</p>
 
 <span class="sd">    Args:</span>
 <span class="sd">        model (SurrogateModel): Instantiated surrogate model.</span>
-
-<span class="sd">        input_variables (List[InputVariable]): List of lume-model variables to use as </span>
-<span class="sd">            inputs</span>
-
-<span class="sd">        ouput_variables (List[OutputVariable]): List of lume-model variables to use as </span>
-<span class="sd">            outputs</span>
 
 <span class="sd">    """</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="n">model</span>
@@ -472,7 +442,13 @@ run<span class="p">(</span><span class="bp">self</span><span class="p">,</span> 
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>55
+<pre><span></span>49
+50
+51
+52
+53
+54
+55
 56
 57
 58
@@ -490,13 +466,7 @@ run<span class="p">(</span><span class="bp">self</span><span class="p">,</span> 
 70
 71
 72
-73
-74
-75
-76
-77
-78
-79</pre>
+73</pre>
 </div>
 </td>
 <td class="code">
