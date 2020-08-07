@@ -11,6 +11,7 @@ import numpy as np
 import time
 import logging 
 import threading
+import requests
 
 from threading import Thread, Event, local
 from typing import Dict, Mapping, Union, List
@@ -25,9 +26,10 @@ from p4p.server.raw import ServOpWrap
 
 from lume_model.variables import Variable, InputVariable, OutputVariable
 from lume_model.models import SurrogateModel
-from lume_epics.model import OnlineSurrogateModel
+from lume_epics.online_model import flask_model_thread, run_model
 
 logger = logging.getLogger(__name__)
+
 
 def build_pvdb(variables: List[Variable]) -> dict:
     """Utility function for building dictionary (pvdb) used to initialize the channel
@@ -237,8 +239,7 @@ class CADriver(Driver):
     def execute_model(self):
         while not self.exit_event.is_set():
             self.execute_event.wait()
-            model_output = model_loader.model.run(list(self.input_variables.values()))
-
+            model_output = run_model(list(self.input_variables.values()), self.output_variables, _model_address)
 
             for variable in model_output:
                 if variable.variable_type == "image":
@@ -284,7 +285,6 @@ class ModelLoader(local):
             surrogate_model
         )
 
-
 class PVAccessInputHandler:
     """Handler object that defines the callbacks to execute on put operations to input
     process variables.
@@ -320,7 +320,7 @@ class PVAccessInputHandler:
         input_pvs[op.name().replace(f"{self.prefix}:", "")].value = op.value()
 
         # run model using global input process variable state
-        output_variables = model_loader.model.run(list(input_pvs.values()))
+        output_variables = run_model(input_pvs, output_pvs, _model_address)
 
         for variable in output_variables:
             if variable.variable_type == "image":
@@ -382,6 +382,7 @@ class Server:
         output_variables: List[OutputVariable],
         prefix: str,
         protocols: List[str] = ["ca", "pva"],
+        model_port: int = 5000,
         model_kwargs: dict = {},
     ) -> None:
         """Create OnlineSurrogateModel instance in the main thread and initialize output 
@@ -416,26 +417,31 @@ class Server:
         # need these to be global to access from threads
         global providers
         global input_pvs
-        global model_loader
+        global output_pvs
+        global _model_address
         self.prefix = prefix
         self.protocols = protocols
 
+
+        _model_address = f"http://localhost:{model_port}/evaluate"
+
         providers = {}
         input_pvs = input_variables
+        output_pvs = output_variables
 
-        self.input_variables = list(input_variables.values())
-        self.output_variables = list(output_variables.values())
+        self.input_variables = input_variables
+        self.output_variables = output_variables
 
         # update inputs for starting value to be the default
-        for variable in self.input_variables:
+        for variable in self.input_variables.values():
             if variable.value is None:
                 variable.value = variable.default
 
-        # initialize loader for model
-        model_loader = ModelLoader(model_class, model_kwargs=model_kwargs,)
+        model_thread = threading.Thread(target=flask_model_thread, args=(model_class, model_port), kwargs={"model_kwargs": model_kwargs})
+        model_thread.start()
 
         # get starting output from the model and set up output process variables
-        self.output_variables = model_loader.model.run(self.input_variables)
+        self.output_variables = run_model(input_variables, output_variables, _model_address)
 
         if "pva" in self.protocols:
             self.initialize_pva_server()
@@ -447,17 +453,14 @@ class Server:
 
         """
         # set up db for initializing process variables
-        variable_dict = {
-            variable.name: variable.value
-            for variable in self.input_variables + self.output_variables
-        }
+        variables = list(self.input_variables.update(self.output_variables).values())
 
         # initialize channel access server
         self.ca_server = SimpleServer()
 
         # create all process variables using the process variables stored in pvdb
         # with the given prefix
-        pvdb = build_pvdb(self.input_variables + self.output_variables)
+        pvdb = build_pvdb(variables)
         self.ca_server.createPV(self.prefix + ":", pvdb)
 
         # set up driver for handing read and write requests to process variables
@@ -470,7 +473,7 @@ class Server:
         """
         logger.info("Initializing pvAccess server")
         # initialize global inputs
-        for variable in self.input_variables:
+        for variable in self.input_variables.values():
             # input_pvs[variable.name] = variable.value
             pvname = f"{self.prefix}:{variable.name}"
 
@@ -512,7 +515,7 @@ class Server:
 
         # use default handler for the output process variables
         # updates to output pvs are handled from post calls within the input update
-        for variable in self.output_variables:
+        for variable in self.output_variables.values():
             pvname = f"{self.prefix}:{variable.name}"
             if variable.variable_type == "scalar":
                 pv = SharedPV(nt=NTScalar(), initial=variable.value)
@@ -540,7 +543,6 @@ class Server:
 
         else:
             pass  # throw exception for incorrect data type
-
 
 
     def start_ca_server(self) -> None:
