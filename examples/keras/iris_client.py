@@ -45,7 +45,6 @@ class ClassificationValueTable(ValueTable):
         """
         for variable in self.pv_monitors:
             v = self.pv_monitors[variable].poll()
-            print(v)
             self.output_values[variable] = self.classification_map[int(v)]
 
         x_vals = [self.labels[var] for var in self.output_values.keys()]
