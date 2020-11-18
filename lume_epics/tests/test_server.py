@@ -94,8 +94,10 @@ def test_constant_variable_pva(value, prefix):
     with epics_server.Server(ExampleModel, prefix, isolate_pva=True, protocols=["pva"]) as S:
 
         # allow pva server startup
-        time.sleep(3)
+        while not S._pva_running.value:
+            time.sleep(0.01)
 
+        # check constant variable assignment
         with Context('pva', conf=S._pva_conf._getvalue(), useenv=False) as ctxt:
             for variable_name, variable in S.input_variables.items():
                 pvname = f"{prefix}:{variable.name}"
@@ -104,7 +106,8 @@ def test_constant_variable_pva(value, prefix):
 
             for variable_name, variable in S.input_variables.items():
                 if variable.variable_type == "scalar":
-                    val = ctxt.get(f"{prefix}:{variable.name}", timeout=1.0, throw = True)
+                    pvname = f"{prefix}:{variable.name}"
+                    val = ctxt.get(pvname, timeout=1.0, throw = True)
 
                     if variable.is_constant:
                         assert val != value

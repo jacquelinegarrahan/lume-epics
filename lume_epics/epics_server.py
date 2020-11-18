@@ -114,6 +114,11 @@ class Server:
             }
         )
 
+        # track running servers
+        self._ca_running = False
+        self._pva_running = multiprocessing.Value('b', False)
+
+        # initialize channel access server
         if "ca" in protocols:
             self.ca_process = CAServer(
                 prefix=self.prefix,
@@ -123,6 +128,7 @@ class Server:
                 out_queue=self.out_queues["ca"]
             )
 
+        # initialize pvAccess server
         if "pva" in protocols:
 
             manager = multiprocessing.Manager()
@@ -135,6 +141,7 @@ class Server:
                 out_queue=self.out_queues["pva"],
                 isolate= isolate_pva,
                 conf_proxy = self._pva_conf,
+                running_indicator = self._pva_running,
             )
 
     def __enter__(self):

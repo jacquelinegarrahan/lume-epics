@@ -35,7 +35,7 @@ class PVAServer(multiprocessing.Process):
     def __init__(self,
                  prefix: str,
                  input_variables: List[InputVariable], output_variables: List[OutputVariable],
-                 in_queue: multiprocessing.Queue, out_queue: multiprocessing.Queue, *args, isolate=False, conf_proxy=None, running_proxy=None, **kwargs) -> None:
+                 in_queue: multiprocessing.Queue, out_queue: multiprocessing.Queue, *args, isolate=False, conf_proxy=None, running_indicator:multiprocessing.Value=None, **kwargs) -> None:
         """Initialize server process.
 
         Args:
@@ -64,6 +64,7 @@ class PVAServer(multiprocessing.Process):
         self.exit_event = multiprocessing.Event()
         self._isolate = isolate
         self._conf = conf_proxy
+        self._running = running_indicator
 
     def update_pv(self, pvname: str, value: Union[np.ndarray, float]) -> None:
         """Adds update to input process variable to the input queue.
@@ -202,6 +203,8 @@ class PVAServer(multiprocessing.Process):
 
         """
         self.setup_server()
+        self._running.value = True
+        
         # mark running
         while not self.exit_event.is_set():
             try:
@@ -214,6 +217,7 @@ class PVAServer(multiprocessing.Process):
                 logger.debug("out queue empty")
 
         self.pva_server.stop()
+        self._running.value = False
         logger.info("pvAccess server stopped.")
 
     def shutdown(self):
