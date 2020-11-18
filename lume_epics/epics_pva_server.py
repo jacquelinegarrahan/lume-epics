@@ -1,5 +1,6 @@
 import logging
 import multiprocessing
+from multiprocessing.managers import DictProxy
 from queue import Full, Empty
 import numpy as np
 import time
@@ -41,9 +42,9 @@ class PVAServer(multiprocessing.Process):
         in_queue: multiprocessing.Queue,
         out_queue: multiprocessing.Queue,
         *args,
-        isolate=False,
-        conf_proxy=None,
-        running_indicator: multiprocessing.Value = None,
+        isolate: bool=False,
+        conf_proxy: DictProxy=None,
+        running_indicator: multiprocessing.Value=None,
         **kwargs,
     ) -> None:
         """Initialize server process.
