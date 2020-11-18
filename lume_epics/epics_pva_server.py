@@ -35,7 +35,7 @@ class PVAServer(multiprocessing.Process):
     def __init__(self,
                  prefix: str,
                  input_variables: List[InputVariable], output_variables: List[OutputVariable],
-                 in_queue: multiprocessing.Queue, out_queue: multiprocessing.Queue, *args, **kwargs) -> None:
+                 in_queue: multiprocessing.Queue, out_queue: multiprocessing.Queue, *args, isolate=False, conf_proxy=None, running_proxy=None, **kwargs) -> None:
         """Initialize server process.
 
         Args:
@@ -49,6 +49,8 @@ class PVAServer(multiprocessing.Process):
 
             out_queue (multiprocessing.Queue): Queue for tracking updates to output variables
 
+            isolate (bool): Whether to isolate the server for local use
+
         """
         
         super().__init__(*args, **kwargs)
@@ -60,6 +62,8 @@ class PVAServer(multiprocessing.Process):
         self._providers = {}
         self.pva_server = None
         self.exit_event = multiprocessing.Event()
+        self._isolate = isolate
+        self._conf = conf_proxy
 
     def update_pv(self, pvname: str, value: Union[np.ndarray, float]) -> None:
         """Adds update to input process variable to the input queue.
@@ -87,7 +91,7 @@ class PVAServer(multiprocessing.Process):
         logger.info("Initializing pvAccess server")
         # initialize global inputs
         for variable in self._input_variables.values():
-            # input_pvs[variable.name] = variable.value
+
             pvname = f"{self._prefix}:{variable.name}"
 
             # prepare scalar variable types
@@ -146,7 +150,11 @@ class PVAServer(multiprocessing.Process):
         else:
             pass  # throw exception for incorrect data type
 
-        self.pva_server = P4PServer(providers=[self._providers])
+        self.pva_server = P4PServer(providers=[self._providers], isolate=self._isolate)
+
+        # update configuration
+        self._conf.update(self.pva_server.conf())
+
         logger.info("pvAccess server started")
 
     def update_pvs(self, input_variables: List[InputVariable], output_variables: List[OutputVariable]) -> None:
@@ -194,6 +202,7 @@ class PVAServer(multiprocessing.Process):
 
         """
         self.setup_server()
+        # mark running
         while not self.exit_event.is_set():
             try:
                 data = self._out_queue.get_nowait()

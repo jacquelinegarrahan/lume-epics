@@ -81,7 +81,7 @@ class ExampleModel(SurrogateModel):
 @pytest.fixture(scope='session')
 def server():
     prefix = "test"
-    server = epics_server.Server(ExampleModel, prefix)
+    server = epics_server.Server(ExampleModel, prefix, isolate_pva=True)
     server.start(monitor=False)
     yield server
     # teardown
@@ -89,29 +89,25 @@ def server():
 
 
 @pytest.mark.parametrize("value,prefix", [(1.0, "test")])
-def test_constant_variable_pva(value, prefix, server):
-    ctxt = Context('pva')
+def test_constant_variable_pva(value, prefix):
 
+    with epics_server.Server(ExampleModel, prefix, isolate_pva=True, protocols=["pva"]) as S:
 
-    for variable_name, variable in server.input_variables.items():
-        if variable.variable_type == "scalar":
-            ctxt.put(f"{prefix}:{variable.name}", value, timeout=2.0, throw=True)
+        # allow pva server startup
+        time.sleep(3)
 
-    for variable_name, variable in server.input_variables.items():
-        if variable.variable_type == "scalar":
-            val = None
-            count = 5
+        with Context('pva', conf=S._pva_conf._getvalue(), useenv=False) as ctxt:
+            for variable_name, variable in S.input_variables.items():
+                pvname = f"{prefix}:{variable.name}"
+                if variable.variable_type == "scalar":
+                    ctxt.put(pvname, value, timeout=1.0, throw=True)
 
-            while not val and count > 0:
-                try:
-                    val = ctxt.get(f"{prefix}:{variable.name}", timeout=2.0, throw = True)
-                except:
-                    count -= 1
+            for variable_name, variable in S.input_variables.items():
+                if variable.variable_type == "scalar":
+                    val = ctxt.get(f"{prefix}:{variable.name}", timeout=1.0, throw = True)
 
-            if variable.is_constant:
-                assert val != value
+                    if variable.is_constant:
+                        assert val != value
 
-            else:
-                assert val == value
-
-    ctxt.close()
+                    else:
+                        assert val == value

@@ -47,6 +47,7 @@ class Server:
         prefix: str,
         protocols: List[str] = ["pva", "ca"],
         model_kwargs: dict = {},
+        isolate_pva: bool = False
     ) -> None:
         """Create OnlineSurrogateModel instance in the main thread and
         initialize output variables by running with the input process variable
@@ -123,13 +124,29 @@ class Server:
             )
 
         if "pva" in protocols:
+
+            manager = multiprocessing.Manager()
+            self._pva_conf = manager.dict()
             self.pva_process = PVAServer(
                 prefix=self.prefix,
                 input_variables=self.input_variables,
                 output_variables=self.output_variables,
                 in_queue=self.in_queue,
-                out_queue=self.out_queues["pva"]
+                out_queue=self.out_queues["pva"],
+                isolate= isolate_pva,
+                conf_proxy = self._pva_conf,
             )
+
+    def __enter__(self):
+        """Handle server startup
+        """
+        self.start(monitor=False)
+        return self
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        """Handle server shutdown
+        """
+        self.stop()
 
     def run_comm_thread(self, model_class, model_kwargs={}, in_queue: multiprocessing.Queue=None,
                         out_queues: Dict[str, multiprocessing.Queue]=None):
