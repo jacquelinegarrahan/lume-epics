@@ -41,10 +41,10 @@ class PVAServer(multiprocessing.Process):
         output_variables: List[OutputVariable],
         in_queue: multiprocessing.Queue,
         out_queue: multiprocessing.Queue,
+        running_indicator: multiprocessing.Value,
+        conf_proxy: DictProxy,
         *args,
         isolate: bool=False,
-        conf_proxy: DictProxy=None,
-        running_indicator: multiprocessing.Value=None,
         **kwargs,
     ) -> None:
         """Initialize server process.
