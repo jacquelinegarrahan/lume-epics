@@ -3,6 +3,9 @@ import time
 import pytest
 import subprocess
 import os
+import sys
+import epics
+import signal
 from p4p.client.thread import Context
 from lume_model.variables import (
     ScalarInputVariable,
@@ -78,16 +81,6 @@ class ExampleModel(SurrogateModel):
 
 
 
-@pytest.fixture(scope='session')
-def server():
-    prefix = "test"
-    server = epics_server.Server(ExampleModel, prefix, isolate_pva=True)
-    server.start(monitor=False)
-    yield server
-    # teardown
-    server.stop()
-
-
 @pytest.mark.parametrize("value,prefix", [(1.0, "test")])
 def test_constant_variable_pva(value, prefix):
 
@@ -99,12 +92,12 @@ def test_constant_variable_pva(value, prefix):
 
         # check constant variable assignment
         with Context('pva', conf=S._pva_conf._getvalue(), useenv=False) as ctxt:
-            for variable_name, variable in S.input_variables.items():
+            for _, variable in S.input_variables.items():
                 pvname = f"{prefix}:{variable.name}"
                 if variable.variable_type == "scalar":
                     ctxt.put(pvname, value, timeout=1.0, throw=True)
 
-            for variable_name, variable in S.input_variables.items():
+            for _, variable in S.input_variables.items():
                 if variable.variable_type == "scalar":
                     pvname = f"{prefix}:{variable.name}"
                     val = ctxt.get(pvname, timeout=1.0, throw = True)
@@ -114,3 +107,65 @@ def test_constant_variable_pva(value, prefix):
 
                     else:
                         assert val == value
+
+
+@pytest.fixture(scope="module")
+def ca_server(rootdir):
+
+    env = os.environ.copy()
+
+    # add root dir to pythonpath in order to run test
+    #env["PYTHONPATH"] = env.get("PYTHONPATH", "") + f":{rootdir}"
+
+    ca_proc = subprocess.Popen(
+            [
+                sys.executable, "launch_ca_server.py"
+            ],
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            cwd= os.path.dirname(os.path.realpath(__file__)),
+            env=env
+    )
+
+    time.sleep(1)
+
+    # Check it started successfully
+    assert not ca_proc.poll()
+
+    #yield ca_proc
+    yield ca_proc
+
+    # teardown
+    ca_proc.send_signal(signal.SIGINT)
+
+
+@pytest.mark.parametrize("value,prefix", [(1.0, "test")])
+def test_constant_variable_ca(value, prefix, ca_server):
+
+    # Print default
+    print(epics.ca.find_libca())
+
+    # REPLACE BELOW WITH CORRECT EPICSCORELIBS PATH
+    os.environ["PYEPICS_LIBCA"] = "/Users/jgarra/opt/anaconda3/envs/lume-test/lib/python3.7/site-packages/epicscorelibs/lib/libca.dylib"
+
+
+    # check constant variable assignment
+    for _, variable in ExampleModel.input_variables.items():
+        pvname = f"{prefix}:{variable.name}"
+        if variable.variable_type == "scalar":
+            epics.caput(pvname, value, timeout=1)
+
+    for _, variable in ExampleModel.input_variables.items():
+        if variable.variable_type == "scalar":
+            pvname = f"{prefix}:{variable.name}"
+            #val = 2
+            val = epics.caget(pvname, timeout=1)
+
+            if variable.is_constant:
+                assert val != value
+
+            else:
+                assert val == value
+
+    # REMOVING THIS LEADS TO SEGFAULT
+    epics.ca.detach_context()
